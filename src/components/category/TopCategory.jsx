@@ -127,7 +127,7 @@ const TopCategory = (props) => {
               }
             />
 
-            <Tab
+            {/* <Tab
               sx={{
                 cursor: "pointer",
                 '&.Mui-selected': {
@@ -150,8 +150,8 @@ const TopCategory = (props) => {
                   </Typography>
                 </Box>
               }
-            />
-            <Tab
+            /> */}
+            {/* <Tab
               sx={{
                 cursor: "pointer",
                 '&.Mui-selected': isActiveCategory ? {
@@ -174,7 +174,7 @@ const TopCategory = (props) => {
                   </Typography>
                 </Box>
               }
-            />
+            /> */}
 
             {/* Dynamically loaded category list */}
             {isLoading ? (
