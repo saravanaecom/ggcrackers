@@ -1,157 +1,190 @@
-import React, { useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 
-const CreackersEffect = () => {
+const colours = ['#ff3', '#f03', '#0f0', '#93f', '#0cf', '#f93', '#f0c'];
+
+function randomBetween(a, b) {
+  return a + Math.random() * (b - a);
+}
+
+const CrackersEffect = () => {
+  const canvasRef = useRef(null);
+
   useEffect(() => {
-    const bits = 80;
-    const speed = 33;
-    const bangs = 5;
-    const colours = ['#03f', '#f03', '#0e0', '#93f', '#0cf', '#f93', '#f0c'];
-    const bangheight = [];
-    const intensity = [];
-    const colour = [];
-    const Xpos = [];
-    const Ypos = [];
-    const dX = [];
-    const dY = [];
-    const stars = [];
-    const decay = [];
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
 
-    let swide = window.innerWidth;
-    let shigh = window.innerHeight;
-    let boddie;
+    let fireworks = [];
 
-    const createDiv = (char, size) => {
-      const div = document.createElement('div');
-      div.style.font = `${size}px monospace`;
-      div.style.position = 'absolute';
-      div.style.backgroundColor = 'transparent';
-      div.style.visibility = 'hidden';
-      div.appendChild(document.createTextNode(char));
-      return div;
-    };
+    function createRocket() {
+      const side = Math.floor(Math.random() * 3); // bottom, left, right
+      let x, y, vx, vy;
+      const color = colours[Math.floor(Math.random() * colours.length)];
+      const speed = randomBetween(5, 8);
 
-    const write_fire = (i) => {
-      stars[i + 'r'] = createDiv('|', 12);
-      boddie.appendChild(stars[i + 'r']);
-      for (let j = bits * i; j < bits * (i + 1); j++) {
-        stars[j] = createDiv('*', 13);
-        boddie.appendChild(stars[j]);
+      if (side === 0) {
+        x = randomBetween(width * 0.2, width * 0.8);
+        y = height;
+        vx = 0;
+        vy = -speed;
+      } else if (side === 1) {
+        x = 0;
+        y = randomBetween(height * 0.4, height * 0.8);
+        vx = speed;
+        vy = -randomBetween(2, 5);
+      } else {
+        x = width;
+        y = randomBetween(height * 0.4, height * 0.8);
+        vx = -speed;
+        vy = -randomBetween(2, 5);
       }
-    };
 
-    const launch = (i) => {
-      colour[i] = Math.floor(Math.random() * colours.length);
-      Xpos[i + 'r'] = swide * 0.5;
-      Ypos[i + 'r'] = shigh - 5;
-      bangheight[i] = Math.round((0.5 + Math.random()) * shigh * 0.4);
-      dX[i + 'r'] = (Math.random() - 0.5) * swide / bangheight[i];
+      return {
+        x, y, vx, vy, color,
+        exploded: false,
+        particles: [],
+        trail: [],
+      };
+    }
 
-      const ch = dX[i + 'r'] > 1.25 ? '/' : dX[i + 'r'] < -1.25 ? '\\' : '|';
-      stars[i + 'r'].firstChild.nodeValue = ch;
-      stars[i + 'r'].style.color = colours[colour[i]];
-    };
+    function createParticles(x, y, color, type = 'flowerpot') {
+      const particles = [];
+      let count = 60;
+      let speedRange = [2, 6];
 
-    const bang = (i) => {
-      let finished = 0;
-      for (let j = bits * i; j < bits * (i + 1); j++) {
-        const s = stars[j].style;
-        s.left = `${Xpos[j]}px`;
-        s.top = `${Ypos[j]}px`;
+      switch (type) {
+        case 'ring':
+          count = 50;
+          speedRange = [4, 4.5];
+          break;
+        case 'chrysanthemum':
+          count = 80;
+          speedRange = [3, 7];
+          break;
+        case 'random':
+          count = 40;
+          speedRange = [2, 8];
+          break;
+        default:
+          count = 60;
+          speedRange = [2, 5];
+      }
 
-        if (decay[j]) {
-          decay[j]--;
+      for (let i = 0; i < count; i++) {
+        const angle = (Math.PI * 2 * i) / count;
+        const speed = randomBetween(...speedRange);
+        particles.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          alpha: 1,
+          color,
+        });
+      }
+      return particles;
+    }
+
+    function animate() {
+      // Removed background fill so canvas is transparent
+      ctx.clearRect(0, 0, width, height);
+
+      fireworks.forEach((fw) => {
+        if (!fw.exploded) {
+          // Rocket trail
+          fw.trail.push({ x: fw.x, y: fw.y });
+          if (fw.trail.length > 10) fw.trail.shift();
+
+          ctx.beginPath();
+          ctx.moveTo(fw.x, fw.y);
+          fw.trail.forEach((t) => {
+            ctx.lineTo(t.x, t.y);
+          });
+          ctx.strokeStyle = fw.color;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+
+          // Rocket head
+          ctx.beginPath();
+          ctx.arc(fw.x, fw.y, 4, 0, Math.PI * 2);
+          ctx.fillStyle = fw.color;
+          ctx.shadowBlur = 20;
+          ctx.shadowColor = fw.color;
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          fw.x += fw.vx;
+          fw.y += fw.vy;
+          fw.vy += 0.02;
+
+          if (fw.vy >= 0 || Math.random() < 0.005) {
+            fw.exploded = true;
+            const burstTypes = ['flowerpot', 'chrysanthemum', 'ring', 'random'];
+            const type = burstTypes[Math.floor(Math.random() * burstTypes.length)];
+            fw.particles = createParticles(fw.x, fw.y, fw.color, type);
+          }
         } else {
-          finished++;
+          fw.particles.forEach((p) => {
+            ctx.globalAlpha = p.alpha;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = p.color;
+            ctx.fill();
+            ctx.shadowBlur = 0;
+
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.05;
+            p.alpha -= 0.015;
+          });
+          ctx.globalAlpha = 1;
+          fw.particles = fw.particles.filter((p) => p.alpha > 0);
         }
+      });
 
-        if (decay[j] === 15) s.fontSize = '7px';
-        else if (decay[j] === 7) s.fontSize = '2px';
-        else if (decay[j] === 1) s.visibility = 'hidden';
+      fireworks = fireworks.filter((fw) => !fw.exploded || fw.particles.length > 0);
 
-        Xpos[j] += dX[j];
-        Ypos[j] += dY[j] += 1.25 / intensity[i];
+      if (fireworks.length < 6 && Math.random() < 0.05) {
+        fireworks.push(createRocket());
       }
 
-      if (finished !== bits) {
-        setTimeout(() => bang(i), speed);
-      }
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    const handleResize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
     };
-
-    const stepthrough = (i) => {
-      let x = Xpos[i + 'r'];
-      let y = Ypos[i + 'r'];
-      Xpos[i + 'r'] += dX[i + 'r'];
-      Ypos[i + 'r'] -= 4;
-
-      if (Ypos[i + 'r'] < bangheight[i]) {
-        const randomColour = Math.floor(Math.random() * 3 * colours.length);
-        intensity[i] = 5 + Math.random() * 4;
-
-        for (let j = bits * i; j < bits * (i + 1); j++) {
-          Xpos[j] = Xpos[i + 'r'];
-          Ypos[j] = Ypos[i + 'r'];
-          dY[j] = (Math.random() - 0.5) * intensity[i];
-          dX[j] = (Math.random() - 0.5) * (intensity[i] - Math.abs(dY[j])) * 1.25;
-          decay[j] = 16 + Math.floor(Math.random() * 16);
-
-          const r = stars[j];
-          if (randomColour < colours.length)
-            r.style.color = colours[j % 2 ? colour[i] : randomColour];
-          else if (randomColour < 2 * colours.length)
-            r.style.color = colours[colour[i]];
-          else
-            r.style.color = colours[j % colours.length];
-
-          r.style.fontSize = '13px';
-          r.style.visibility = 'visible';
-          //r.style.position = 'relative';
-          //r.style.zIndex = 999;
-        }
-
-        bang(i);
-        launch(i);
-      }
-
-      stars[i + 'r'].style.left = `${x}px`;
-      stars[i + 'r'].style.top = `${y}px`;
-    };
-
-    const set_width = () => {
-      swide = window.innerWidth;
-      shigh = window.innerHeight;
-    };
-
-    // Initialize on mount
-    const init = () => {
-      boddie = document.createElement('div');
-      boddie.style.position = 'fixed';
-      boddie.style.top = '0px';
-      boddie.style.left = '0px';
-      boddie.style.overflow = 'visible';
-      boddie.style.width = '1px';
-      boddie.style.height = '1px';
-      boddie.style.backgroundColor = 'transparent';
-      document.body.appendChild(boddie);
-
-      set_width();
-
-      for (let i = 0; i < bangs; i++) {
-        write_fire(i);
-        launch(i);
-        setInterval(() => stepthrough(i), speed);
-      }
-    };
-
-    init();
-    window.addEventListener('resize', set_width);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener('resize', set_width);
-      document.body.removeChild(boddie);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  return null;
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh',
+        pointerEvents: 'none',
+        zIndex: 9999,
+      }}
+    />
+  );
 };
 
-export default CreackersEffect;
+export default CrackersEffect;
