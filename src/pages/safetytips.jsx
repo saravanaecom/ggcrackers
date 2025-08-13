@@ -4,6 +4,7 @@ import Rocket from '../assets/rocket.png';
 import DosChecklist from '../components/safetyTips/DosChecklist';
 import DontsChecklist from '../components/safetyTips/DontsChecklist';
 import SafetyTipsBanner from '../components/safetyTips/SafetyTipsBanner';
+import CreackersEffect from '../components/CreackersEffect';
 
 function SafetyTips() {
   const rocketRef = useRef(null);
@@ -113,6 +114,7 @@ function SafetyTips() {
           </Box>
         </div>
       </Box>
+      <CreackersEffect/>
     </Container>
     </>    
   );

@@ -293,7 +293,7 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
             value={product?.Productid ? product.Productid : product?.Id}
             component="img"
             onClick={handleProductClick}
-            image={newProducts === 'new_product' ? ImagePathRoutes.ProductDetailsImagePath + product.Img0 : ImagePathRoutes.ProductImagePath + product.Img0}
+            image={newProducts === 'new_product' ? ImagePathRoutes.ProductImagePath + product.Img0 : ImagePathRoutes.ProductImagePath + product.Img0}
             alt={product.Description}
             className="card-media"
             sx={{

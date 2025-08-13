@@ -19,6 +19,7 @@ import { useTheme } from '@mui/material/styles';
 import { connect } from 'react-redux';
 import * as actionType from '../redux/actionType';
 import DOMPurify from "dompurify";
+import CreackersEffect from '../components/CreackersEffect';
 
 
 const ProductDetails = (props) => {
@@ -297,6 +298,7 @@ const ProductDetails = (props) => {
 
     return (
         <>
+             <CreackersEffect/>
             <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={backdropOpen}>
                 <CircularProgress color="inherit" />
             </Backdrop>

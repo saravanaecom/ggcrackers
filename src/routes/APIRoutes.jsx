@@ -64,7 +64,7 @@ export const APIRoutes = {
     GET_PRODUCT_BY_SUBCATEGORY: `${ServerURL.PRODUCTION_HOST_URL}api/WebMobileApp/SelectProductBySubCategory`,
     GET_PRODUCT_BY_ID: `${ServerURL.PRODUCTION_HOST_URL}api/WebMobileApp/SelectProductId`,
     GET_SEARCH_BY_PRODUCT: `${ServerURL.PRODUCTION_HOST_URL}api/ItemmasterEcomApp/SelectProductAdminSearch`,
-
+    APP_SELECTPRODUCT:`${ServerURL.PRODUCTION_HOST_URL}/api/ItemmasterEcomApp/SelectProductAdminSearch`, 
     //Wishlist product (favorite)
     INSERT_FAVORITE_PRODUCT: `${ServerURL.PRODUCTION_HOST_URL}api/WhishlistApp/InsertWishlist`,
     GET_PRODUCT_BY_FAVORITE_LISTS: `${ServerURL.PRODUCTION_HOST_URL}api/WebMobileApp/SelectProductByWishlist`,
