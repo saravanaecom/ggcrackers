@@ -102,7 +102,7 @@ const TopCategory = (props) => {
             }}
           >
             {/* Three static tabs */}
-            <Tab
+            {/* <Tab
               sx={{
                 cursor: "pointer",
                 '&.Mui-selected': {
@@ -125,7 +125,7 @@ const TopCategory = (props) => {
                   </Typography>
                 </Box>
               }
-            />
+            /> */}
 
             {/* <Tab
               sx={{
@@ -151,7 +151,7 @@ const TopCategory = (props) => {
                 </Box>
               }
             /> */}
-            {/* <Tab
+            <Tab
               sx={{
                 cursor: "pointer",
                 '&.Mui-selected': isActiveCategory ? {
@@ -166,15 +166,15 @@ const TopCategory = (props) => {
               label={
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                   <Avatar
-                    src={NewProducts}
+                    src={AllCategories}
                     sx={{ width: 55, height: 55, mb: 0.5, boxShadow: `0px 0px 40px 20px ${theme.palette.shadowcolorCode.main}` }}
                   />
                   <Typography variant="caption" sx={{ textAlign: 'center', textTransform: 'capitalize', fontWeight: 600, fontSize: '14px', color: theme.palette.colorCode.main }}>
-                    New Arrivals
+                   All Products
                   </Typography>
                 </Box>
               }
-            /> */}
+            />
 
             {/* Dynamically loaded category list */}
             {isLoading ? (
