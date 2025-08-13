@@ -4,9 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Container, Select, MenuItem, FormControl, Drawer, List, ListItem, ListItemText, Grid, Typography, Avatar, CircularProgress, Backdrop } from '@mui/material';
 import ProductCard from '../components/ProductCard';
-import { API_FetchOfferFastMovingProduct, API_FetchNewProduct, API_FetchProductIdMoreItems, API_FetchProductByCategory, API_FetchProductBySubCategory, API_FetchBrand } from '../services/productListServices';
+import { API_FetchOfferFastMovingProduct, API_FetchNewProduct,fetchSelectProduct, API_FetchProductByIndexPage,API_FetchProductIdMoreItems, API_FetchProductByCategory, API_FetchProductBySubCategory, API_FetchBrand } from '../services/productListServices';
 import { API_FetchCategorySubCategory } from '../services/categoryServices';
-import { API_FetchProductByIndexPage } from '../services/productListServices';
 import { ImagePathRoutes } from '../routes/ImagePathRoutes';
 import { positions, styled } from '@mui/system';
 import { useTheme } from '@mui/material/styles';
@@ -118,15 +117,15 @@ const ProductList = () => {
         setRelatedProducts(null);
         setNewProducts(null);
         setOfferProducts(categoryId);
-        setActiveCategory("Family products for you");
+        setActiveCategory("Offer products for you");
         productLists = await API_FetchOfferFastMovingProduct();
       }
       else if (categoryId === "new_product") {
         setOfferProducts(null);
         setRelatedProducts(null);
         setNewProducts(categoryId);
-        setActiveCategory("New products for you");
-        productLists = await API_FetchNewProduct();
+        setActiveCategory("ALL products");
+        productLists = await fetchSelectProduct();
       }
       else if (categoryId === "related_product") {
         setOfferProducts(null);
@@ -139,11 +138,8 @@ const ProductList = () => {
         setOfferProducts(null);
         setRelatedProducts(null);
         setNewProducts(null);
-        productLists = await API_FetchProductByIndexPage();
-
+        productLists = await API_FetchProductByCategory(categoryId, Multipleitems, Startindex, PageCount);
       }
-
-      productLists = productLists.data1;
       setProductLists(productLists);
       setLoading(false);
       setBackdropOpen(false);
@@ -154,6 +150,7 @@ const ProductList = () => {
       setProductLists([]);
     }
   };
+
   const GetProductListsBySubCategory = async (SubCategoryId, Multipleitems, Startindex, PageCount) => {
     try {
       if (SubCategoryId !== null) {
@@ -178,12 +175,7 @@ const ProductList = () => {
       setProductLists([]);
     }
   };
-
-
   const handleBrandChange = (event) => {
-
-
-
     const selectedBrandId = event.target.value;
     setSelectedBrand(selectedBrandId);
 
@@ -251,7 +243,6 @@ const ProductList = () => {
       setActiveCategory("All Products");
       GetProductLists(productId, Multipleitems, Startindex, PageCount);
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search]);
 
@@ -472,8 +463,7 @@ const ProductList = () => {
           {/* Mobile Drawer Toggle Button */}
        
 
-          {
-          (offerProducts === null && relatedProducts === null && newProducts === null) && (
+          {(offerProducts === null && relatedProducts === null && newProducts === null) && (
             <Grid item xs={2} md={2} sx={{ display: { xs: 'flex', md: 'none' }, position: '', top: 0 }}>
               <Drawer
                 variant="permanent"
@@ -629,13 +619,13 @@ const ProductList = () => {
 
               {/* Render filtered product list */}
               <Grid container spacing={2} >
-           {loading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" width="100%">
+          {loading ? (
+         <Box display="flex" justifyContent="center" alignItems="center" width="100%">
           <CircularProgress />
-          </Box>
-           ) : productLists.length > 0 ? (
-          productLists.map((product) => (
-          <Grid item xs={12} md={3} key={product.id} sx={{  position:{xs:"relative"},left:{xs:50}}}> {/* Each card takes half the row */}
+      </Box>
+     ) : productLists.length > 0 ? (
+    productLists.map((product) => (
+      <Grid item xs={12} md={3} key={product.id} sx={{  position:{xs:"relative"},left:{xs:50}}}> {/* Each card takes half the row */}
         <ProductCard
           product={product}
           isLoading={loading}
@@ -643,22 +633,22 @@ const ProductList = () => {
           relatedProducts={relatedProducts}
           newProducts={newProducts}
         />
-         </Grid>
-          ))
-        ) : (
-       <Typography
-       variant="h6"
-       sx={{
+      </Grid>
+    ))
+  ) : (
+    <Typography
+      variant="h6"
+      sx={{
         mt: 3,
         width: "100%",
         textAlign: "center",
         color: theme.palette.basecolorCode.main,
       }}
-       >
+    >
       No products available.
-      </Typography>
-    )}
-             </Grid>
+    </Typography>
+  )}
+</Grid>
 
             </Grid>
           </Grid>
