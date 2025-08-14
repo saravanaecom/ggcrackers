@@ -21,10 +21,10 @@ export default function AppRegister({ RegisterDrawerOpen, setLoginDrawerOpen, ha
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [ShowErrorMsg, setShowErrorMsg] = useState('');
   const [whatsapdata, setwhatsapdata] = React.useState([]);
-  const [receivedOtp, setReceivedOtp] = useState(null);
-  const [enteredOtp, setEnteredOtp] = useState('');
-  const [isOtpValid, setIsOtpValid] = useState(false);
-  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [receivedOtp, setReceivedOtp] = React.useState(null);
+  const [enteredOtp, setEnteredOtp] = React.useState('');
+  const [isOtpValid, setIsOtpValid] = React.useState(false);
+  const [showOtpInput, setShowOtpInput] = React.useState(false);
  
   // Error state for validation
   const [errors, setErrors] = useState({});
@@ -171,7 +171,7 @@ export default function AppRegister({ RegisterDrawerOpen, setLoginDrawerOpen, ha
   
       if (otpresponse) {
         // OTP verification is successful, show input for OTP
-
+        
         const otpString = otpresponse.toString();
         setReceivedOtp(otpString);  // OTP received from backend
         setShowOtpInput(true);  // Show OTP input field

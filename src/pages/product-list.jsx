@@ -10,6 +10,7 @@ import { ImagePathRoutes } from '../routes/ImagePathRoutes';
 import { positions, styled } from '@mui/system';
 import { useTheme } from '@mui/material/styles';
 import AllCategory from '../assets/alc.jpg';
+import CreackersEffect from '../components/CreackersEffect';
 //import PlayStrore from '../../D:\KarthikWorkSpace\ReactProject\treeandleef\ecommercev7_frontend-main\src\assets\alc.jpg';
 
 const drawerWidth = 240;
@@ -654,6 +655,7 @@ const ProductList = () => {
           </Grid>
         </Grid>
       </Container>
+      <CreackersEffect/>
     </>
 
   );

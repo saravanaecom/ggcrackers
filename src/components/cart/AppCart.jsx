@@ -72,6 +72,7 @@ export default function AppCart({ CartDrawerOpen, setLoginDrawerOpen, handleAuth
   const [MinimumOrderAmount, setMinimumOrderAmount] = React.useState(ServerURL.MINIMUM_ORDER_AMOUNT);
   const [CashOnDeliveryLimit, setCashOnDeliveryLimit] = React.useState(ServerURL.MINIMUM_ORDER_AMOUNT);
   const [minAmountCheck, setMinAmountCheck] = React.useState(false);
+  const [enteredOtp, setEnteredOtp] = React.useState('');
 
   const handleChangeAddressOpen = () => {
     let userLogin = localStorage.getItem("userLogin");
@@ -139,18 +140,18 @@ export default function AppCart({ CartDrawerOpen, setLoginDrawerOpen, handleAuth
 
   //Handle proceed
   const handleProceedItems = () => {
-    let userLogin = localStorage.getItem("userLogin");
-    let userId = Number(atob(localStorage.getItem("userId")));
-    setUserId(userId);
-    if (userLogin === null) {
-      handleAuthDrawerToggle(false);
-      setLoginDrawerOpen(true);      
-    }
-    else if(userLogin === "false" || userId === 0){
-      handleAuthDrawerToggle(false);
-      setLoginDrawerOpen(true);  
-    }
-    else if (selectedAddress !== 'No address selected') {
+    // let userLogin = localStorage.getItem("userLogin");
+    // let userId = Number(atob(localStorage.getItem("userId")));
+   // setUserId(userId);
+    // if (userLogin === null) {
+    //   handleAuthDrawerToggle(false);
+    //   setLoginDrawerOpen(true);      
+    // }
+  //  if(userLogin === "false" || userId === 0){
+  //     handleAuthDrawerToggle(false);
+  //     setLoginDrawerOpen(true);  
+  //   }
+
       const CartTotalAmount = cartTotalAmountCheck();
       FetchMinimumOrderAmount();
 
@@ -167,10 +168,10 @@ export default function AppCart({ CartDrawerOpen, setLoginDrawerOpen, handleAuth
       else {
         setMinAmountCheck(true);
       }      
-    }
-    else {
-      setModalOpen(true);
-    }
+    
+    // else {
+    //   setModalOpen(true);
+    // }
   };
 
   //Load minimum order amount lists
@@ -221,7 +222,7 @@ export default function AppCart({ CartDrawerOpen, setLoginDrawerOpen, handleAuth
         </DialogActions>
       </Dialog>
 
-      <AddressChangeModal UserId={UserId} setUserId={setUserId} ModalOpen={ModalOpen} handleChangeAddressClose={handleChangeAddressClose} handleAddressSelect={handleAddressSelect} />
+      {/* <AddressChangeModal UserId={UserId} setUserId={setUserId} ModalOpen={ModalOpen} handleChangeAddressClose={handleChangeAddressClose} handleAddressSelect={handleAddressSelect} /> */}
       <Drawer
         sx={{
           width: drawerWidth,
@@ -288,7 +289,7 @@ export default function AppCart({ CartDrawerOpen, setLoginDrawerOpen, handleAuth
               <AccordionAmountDetails useWallet={useWallet} walletAmount={WalletAmount} />
             </>
           )}
-              <Box>
+              {/* <Box>
                 <Grid container>
                   <Grid item xs={9} sx={{ justifyContent: 'space-between' }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
@@ -319,7 +320,7 @@ export default function AppCart({ CartDrawerOpen, setLoginDrawerOpen, handleAuth
                     <Button onClick={handleChangeAddressOpen} sx={{ color: 'red' }} >Change</Button>
                   </Grid>
                 </Grid>
-              </Box>
+              </Box> */}
               {WalletAmount > 0 && (
                 <Box display="flex" alignItems="center" justifyContent="space-between" mt={1}>
                   <FormGroup>
@@ -336,9 +337,9 @@ export default function AppCart({ CartDrawerOpen, setLoginDrawerOpen, handleAuth
                   </FormGroup>
                 </Box>
               )}
-              {minAmountCheck &&(
+              {/* {minAmountCheck &&(
                 <Box><Typography align='center' color='error'>Minimum on order above ₹300</Typography></Box>
-              )}
+              )} */}
               <Box display="flex" justifyContent="space-between" alignItems="center" mt={2}>
                 <Button
                   size='small'

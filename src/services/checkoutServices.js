@@ -13,11 +13,10 @@ export const API_InsertSaleOrderSave = async (objlist,WhatsAppUrl, OwnerMobileNo
           objData: '',
           Whatsappaccountid: WhatsAppUrl,
           Ownerno: OwnerMobileNo
-        
-          
+
         },
         body: JSON.stringify(objlist)
-  
+      
         
       });      
       if (response.ok) {

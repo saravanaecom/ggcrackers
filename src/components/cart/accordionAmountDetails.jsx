@@ -374,12 +374,12 @@ export default function AccordionAmountDetails({ useWallet, walletAmount }) {
 
              {/* my updated code  */}
                 
-             <Grid item xs={8} sx={{ mt: 0.5 }}>
+             {/* <Grid item xs={8} sx={{ mt: 0.5 }}>
   <Typography sx={{ fontSize: '14px', borderBottom: 'dashed 1px lightgray', display: 'inline' }} variant="body1">
   Discount Applied
   </Typography>
-</Grid>
-<Grid item xs={4} sx={{ mt: 0.5 }}>
+</Grid> */}
+{/* <Grid item xs={4} sx={{ mt: 0.5 }}>
   <Typography sx={{ fontSize: '14px', fontWeight: 600 }} variant="body1" align="right">
     {CouponDiscountdata?.type === 'percent' && discountAmount > 0 ? (
       <>
@@ -393,26 +393,14 @@ export default function AccordionAmountDetails({ useWallet, walletAmount }) {
      0
     )}
   </Typography>
-           </Grid>
+           </Grid> */}
 
              {/* myupdated code */}
-
-
-
              <AccordionDetails>
         <Grid container spacing={2}>
         </Grid>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
-          <TextField label="Enter Coupon" variant="outlined" size="small" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} fullWidth />
-          <Button variant="contained" onClick={handleApplyCoupon} disabled={loading}>Apply</Button>
-        </Box>
-        {CouponDiscountdata && (
-          <Typography sx={{ mt: 1, color: 'green' }}>Coupon Applied: {CouponDiscountdata.value}</Typography>
-        )}
       </AccordionDetails>
-
-
-            </Grid>
+          </Grid>
           </Box>
         </AccordionDetails>
       </Accordion>

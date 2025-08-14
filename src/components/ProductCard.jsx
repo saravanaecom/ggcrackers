@@ -9,9 +9,11 @@ import { ServerURL } from '../server/serverUrl';
 import { API_InsertMyFavoriteProducts, API_DeleteMyFavoriteProducts, API_FetchMyFavoriteProducts } from '../services/userServices';
 import { useCart } from '../context/CartContext';
 import { useTheme } from '@mui/material/styles';
+import AppCart from './cart/AppCart';
 import * as actionType from '../redux/actionType';
 import { connect } from 'react-redux';
 import { motion } from 'framer-motion';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'; 
 
 const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, relatedProducts, newProducts }) => {
   const navigate = useNavigate();
@@ -28,7 +30,11 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
   const [selectedMRP, setselectedMRP] = useState(0);
   const [currentPrice, setCurrentPrice] = useState(0);
   const [favProductLists, setFavProductLists] = useState([]);
-
+  const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
+  const [loginDrawerOpen, setLoginDrawerOpen] = useState(false);
+  const offerPercent = product.MRP && product.Price
+  ? Math.round(((product.MRP - product.Price) / product.MRP) * 100)
+  : 0;
   //Fav product lists
   const FetchMyFavoriteProducts = async (ProductId) => {
     if (get_fav_lists.length !== 0) {
@@ -50,6 +56,18 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
   }, []);
 
 
+
+  const handleAuthDrawerToggle = (event) => {
+    if (event === false) {
+    
+        setCartDrawerOpen((prev) => !prev);
+     
+    }
+    else {
+        setCartDrawerOpen(true);
+  
+    }
+  };
 
   const handleProductWeightChange = (event, ProductWeightLists) => {
     event.stopPropagation();
@@ -153,6 +171,8 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
     setTotalPrice(newTotalPrice);
     setCurrentPrice(newTotalPrice);
     updateCartItems(newQuantity, newTotalPrice, MRP);
+
+    
   };
 
   // Quantity decrement function
@@ -307,32 +327,40 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
             }}
           />
 
-          {Math.round(product.Offer) !== 0 && (
-            <Box
-              sx={{
-                position: 'absolute',
-                bottom: '12px',
-                left: '12px',
-                background: 'rgba(255, 107, 107, 0.25)',
-                backdropFilter: 'blur(8px)',
-                border: '1px solid rgba(255, 107, 107, 0.18)',
-                color: '#fff',
-                padding: '6px 12px',
-                borderRadius: '20px',
-                fontSize: '12px',
-                fontWeight: '600',
-                boxShadow: '0 4px 12px rgba(255, 107, 107, 0.15)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                zIndex: 2
-              }}
-            >
-
-                <span style={{ fontSize: '14px' }}>{Math.round(product.Offer)}%</span>
-                  <span style={{ fontSize: '11px' }}>OFF</span>
-            </Box>
-          )}
+        {product.MRP && product.Price && offerPercent > 0 && (
+        <Box
+        sx={{
+              position: 'absolute',
+              bottom: '12px',
+              left: '12px',
+              background: 'linear-gradient(90deg, #ff3c3c, #ffb347, #43e97b, #38f9d7, #ff3c3c)',
+               backgroundSize: '400% 400%',
+              animation: 'blinkBadge 1.2s linear infinite',
+               border: '2px solid #fff176',
+               color: '#fff',
+               padding: '7px 16px',
+               borderRadius: '24px',
+                fontSize: '14px',
+                fontWeight: 'bold',
+                 boxShadow: '0 4px 16px 0 rgba(255, 107, 107, 0.25), 0 0 8px 2px #fff176',
+                 display: 'flex',
+                 alignItems: 'center',
+                gap: '6px',
+                zIndex: 2,
+                letterSpacing: '1px',
+                textShadow: '0 0 6px #fff176, 0 0 2px #ff3c3c',
+                transition: 'all 0.3s',
+               '@keyframes blinkBadge': {
+                 '0%': { filter: 'brightness(1)' },
+               '50%': { filter: 'brightness(1.5)' },
+               '100%': { filter: 'brightness(1)' },
+                },
+             }}
+                >
+               <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{offerPercent}%</span>
+               <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '2px' }}>OFF</span>
+              </Box>
+           )}
           <Box
             sx={{
               position: 'absolute',
@@ -442,49 +470,8 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
             </Box>
     
 
-   
-
-
-
-            <Box sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-              {/* <Typography
-                variant="body2"
-                sx={{ color: theme.palette.lightblackcolorCode.main, fontSize: '14px', lineHeight: '24px', fontFamily: 'inherit' }}
-              >
-                {product.MultiplePriceEnable === 0 ? product.UnitType :
-                  <Box sx={{ minWidth: 75, p: 0 }}>
-                    <FormControl fullWidth sx={{ p: 0, border: 'none' }}>
-                      <Select
-                        sx={{
-                          height: '30px',
-                          border: '1px dotted #999',
-                          '& .MuiOutlinedInput-notchedOutline': {
-                            border: 'none',
-                          },
-                          '&:hover .MuiOutlinedInput-notchedOutline': {
-                            border: 'none',
-                          },
-                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            border: 'none',
-                          },
-                        }}
-                        size="small"
-                        labelId="demo-simple-select-label-multi"
-                        id="demo-simple-select-multi"
-                        value={productWeight}
-                        onChange={(e) => handleProductWeightChange(e, product.ProductWeightType)}
-                      >
-                        {product.ProductWeightType.map((weight, index) => (
-                          <MenuItem sx={{ px: 1, py: 0 }} key={index} name={weight.Id} value={weight.WeightType}>
-                            {weight.WeightType}
-                          </MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </Box>
-                }
-              </Typography> */}
-            </Box>
+  
+        
             <Box         sx={{ 
                     display: 'flex', 
                     alignItems: 'center',
@@ -590,7 +577,7 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
                   }
                 }}
                 id={product.Id}
-                onClick={(e) => { handleIncrement(e); }}
+                onClick={(e) => { handleIncrement(e);handleAuthDrawerToggle(); }}
               >
                 Add to Cart
               </Button>
@@ -619,6 +606,7 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
           </>
         )}
       </CardContent>
+       <AppCart CartDrawerOpen={cartDrawerOpen} setLoginDrawerOpen={setLoginDrawerOpen} handleAuthDrawerToggle={handleAuthDrawerToggle} />
     </Card>
 
   );
