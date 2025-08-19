@@ -13,7 +13,7 @@ import AppCart from './cart/AppCart';
 import * as actionType from '../redux/actionType';
 import { connect } from 'react-redux';
 import { motion } from 'framer-motion';
-import RocketLaunchIcon from '@mui/icons-material/RocketLaunch'; 
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, relatedProducts, newProducts }) => {
   const navigate = useNavigate();
@@ -33,8 +33,8 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const [loginDrawerOpen, setLoginDrawerOpen] = useState(false);
   const offerPercent = product.MRP && product.Price
-  ? Math.round(((product.MRP - product.Price) / product.MRP) * 100)
-  : 0;
+    ? Math.round(((product.MRP - product.Price) / product.MRP) * 100)
+    : 0;
   //Fav product lists
   const FetchMyFavoriteProducts = async (ProductId) => {
     if (get_fav_lists.length !== 0) {
@@ -52,20 +52,20 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
 
   useEffect(() => {
     FetchMyFavoriteProducts(product?.Productid ? product.Productid : product?.Id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
 
   const handleAuthDrawerToggle = (event) => {
     if (event === false) {
-    
-        setCartDrawerOpen((prev) => !prev);
-     
+
+      setCartDrawerOpen((prev) => !prev);
+
     }
     else {
-        setCartDrawerOpen(true);
-  
+      setCartDrawerOpen(true);
+
     }
   };
 
@@ -172,7 +172,7 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
     setCurrentPrice(newTotalPrice);
     updateCartItems(newQuantity, newTotalPrice, MRP);
 
-    
+
   };
 
   // Quantity decrement function
@@ -211,12 +211,12 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
     let userId = localStorage.getItem("userId");
     userId = userId ? decodeURIComponent(userId) : null;
     try {
-      const response = await API_InsertMyFavoriteProducts(ProductId,  Number(atob(userId)));
+      const response = await API_InsertMyFavoriteProducts(ProductId, Number(atob(userId)));
       if (response.DeleteStatus === 0 && response.ItemmasterRefid !== 0) {
         await FetchMyFavoriteProducts(ProductId);
         setIsFavoriteProduct(1);
       }
-      else{
+      else {
         setIsFavoriteProduct(0);
       }
     } catch (error) {
@@ -241,17 +241,17 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
   };
 
   return (
- 
+
     <Card
       id={product?.Productid ? product.Productid : product?.Id}
       name={product.Description}
       value={product?.Productid ? product.Productid : product?.Id}
       sx={{
-        width: { 
-          xs: offerProducts === null && relatedProducts === null && newProducts === null ? 155 : 175, 
-          sm: 220, 
-          md: 260, 
-          lg: 260 
+        width: {
+          xs: offerProducts === null && relatedProducts === null && newProducts === null ? 155 : 175,
+          sm: 220,
+          md: 260,
+          lg: 260
         },
         height: { xs: 320, sm: 380, md: 400, lg: 420 },
         margin: '0 auto',
@@ -321,47 +321,47 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
               transform: 'scale(1)',
               width: '100%',
               height: '100%',
-            
+
               padding: { xs: '10px', sm: '12px', md: '15px' },
               objectFit: 'contain',
             }}
           />
 
-        {product.MRP && product.Price && offerPercent > 0 && (
-        <Box
-        sx={{
-              position: 'absolute',
-              bottom: '12px',
-              left: '12px',
-              background: 'linear-gradient(90deg, #ff3c3c, #ffb347, #43e97b, #38f9d7, #ff3c3c)',
-               backgroundSize: '400% 400%',
-              animation: 'blinkBadge 1.2s linear infinite',
-               border: '2px solid #fff176',
-               color: '#fff',
-               padding: '7px 16px',
-               borderRadius: '24px',
+          {product.MRP && product.Price && offerPercent > 0 && (
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: '12px',
+                left: '12px',
+                background: 'linear-gradient(90deg, #ff3c3c, #ffb347, #43e97b, #38f9d7, #ff3c3c)',
+                backgroundSize: '400% 400%',
+                animation: 'blinkBadge 1.2s linear infinite',
+                border: '2px solid #fff176',
+                color: '#fff',
+                padding: '7px 16px',
+                borderRadius: '24px',
                 fontSize: '14px',
                 fontWeight: 'bold',
-                 boxShadow: '0 4px 16px 0 rgba(255, 107, 107, 0.25), 0 0 8px 2px #fff176',
-                 display: 'flex',
-                 alignItems: 'center',
+                boxShadow: '0 4px 16px 0 rgba(255, 107, 107, 0.25), 0 0 8px 2px #fff176',
+                display: 'flex',
+                alignItems: 'center',
                 gap: '6px',
                 zIndex: 2,
                 letterSpacing: '1px',
                 textShadow: '0 0 6px #fff176, 0 0 2px #ff3c3c',
                 transition: 'all 0.3s',
-               '@keyframes blinkBadge': {
-                 '0%': { filter: 'brightness(1)' },
-               '50%': { filter: 'brightness(1.5)' },
-               '100%': { filter: 'brightness(1)' },
+                '@keyframes blinkBadge': {
+                  '0%': { filter: 'brightness(1)' },
+                  '50%': { filter: 'brightness(1.5)' },
+                  '100%': { filter: 'brightness(1)' },
                 },
-             }}
-                >
-               <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{offerPercent}%</span>
-               <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '2px' }}>OFF</span>
-              </Box>
-           )}
-          <Box
+              }}
+            >
+              <span style={{ fontSize: '16px', fontWeight: 'bold' }}>{offerPercent}%</span>
+              <span style={{ fontSize: '13px', fontWeight: 'bold', letterSpacing: '2px' }}>OFF</span>
+            </Box>
+          )}
+          {/* <Box
             sx={{
               position: 'absolute',
               top: '12px',
@@ -381,31 +381,31 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
             }}
             id={product.isFavorite !== null ? product.isFavorite : isFavoriteProduct}
           >
-            {isFavoriteProduct !== 0 ? <FavoriteIcon size="small"   sx={{ 
-                      color: '#ee4372',
-                      fontSize: '20px',
-                      filter: 'drop-shadow(0 2px 2px rgba(238, 67, 114, 0.2))'
-                    }} 
-                    onClick={(event) => { handleRemoveFavProduct(product?.Productid ? product.Productid : product?.Id, event); }} /> : <FavoriteBorderIcon onClick={(event) => { handleAddFavProduct(product?.Productid ? product.Productid : product?.Id, event, 'Add'); }} size="small" sx={{ color: '#ee4372', fontSize: '18px' }} />}
-          </Box>
- 
+            {isFavoriteProduct !== 0 ? <FavoriteIcon size="small" sx={{
+              color: '#ee4372',
+              fontSize: '20px',
+              filter: 'drop-shadow(0 2px 2px rgba(238, 67, 114, 0.2))'
+            }}
+              onClick={(event) => { handleRemoveFavProduct(product?.Productid ? product.Productid : product?.Id, event); }} /> : <FavoriteBorderIcon onClick={(event) => { handleAddFavProduct(product?.Productid ? product.Productid : product?.Id, event, 'Add'); }} size="small" sx={{ color: '#ee4372', fontSize: '18px' }} />}
+          </Box> */}
+
         </Box>
       )}
- 
-      <CardContent 
 
-      
-       sx={{ 
-        height: { xs: '50%', sm: '45%', md: '40%' },
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        padding: '16px',
-        background: 'rgba(255, 255, 255, 0.15)',
-        backdropFilter: 'blur(8px)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.18)',
-        zIndex: 2
-      }}>
+      <CardContent
+
+
+        sx={{
+          height: { xs: '50%', sm: '45%', md: '40%' },
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          padding: '16px',
+          background: 'rgba(255, 255, 255, 0.15)',
+          backdropFilter: 'blur(8px)',
+          borderTop: '1px solid rgba(255, 255, 255, 0.18)',
+          zIndex: 2
+        }}>
         {isLoading ? (
           <>
             <Skeleton variant="text" width="80%" />
@@ -415,25 +415,25 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
         ) : (
           <>
 
-{product.OurChoice === 1 && (
-  <Box
-    sx={{
-      position: 'absolute',
-      bottom:'150px',
-      right: '8px',
-      backgroundColor: '#ee4372',
-      color: '#fff',
-      fontSize: '12px',
-      fontWeight: 'bold',
-      borderRadius: '4px',
-      padding: '4px 8px',
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-      zIndex: 10,
-    }}
-  >
-    Our Choice
-  </Box>
-)}
+            {product.OurChoice === 1 && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: '150px',
+                  right: '8px',
+                  backgroundColor: '#ee4372',
+                  color: '#fff',
+                  fontSize: '12px',
+                  fontWeight: 'bold',
+                  borderRadius: '4px',
+                  padding: '4px 8px',
+                  boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                  zIndex: 10,
+                }}
+              >
+                Our Choice
+              </Box>
+            )}
             <Box sx={{ flex: '1 0 auto' }}>
               <Typography
                 variant="body2"
@@ -445,7 +445,7 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
                 sx={{
                   fontSize: { xs: '13px', sm: '14px', md: '15px' },
                   fontWeight: '600',
-                
+
                   overflow: 'hidden',
                   display: '-webkit-box',
                   WebkitLineClamp: 2,
@@ -462,27 +462,56 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
               >
                 {product.Description}
               </Typography>
-               
+
+              <Typography
+                variant="body2"
+                component={"p"}
+                id={product?.Productid ? product.Productid : product?.Id}
+                name={product.Description}
+                value={product?.Productid ? product.Productid : product?.Id}
+                onClick={handleProductClick}
+                sx={{
+                  fontSize: { xs: '13px', sm: '14px', md: '15px' },
+                  fontWeight: '600',
+
+                  overflow: 'hidden',
+                  display: '-webkit-box',
+                  WebkitLineClamp: 2,
+                  WebkitBoxOrient: 'vertical',
+                  textOverflow: 'ellipsis',
+                  lineHeight: '1.4',
+                  marginBottom: '8px',
+                  transition: 'color 0.2s ease',
+                  '&:hover': {
+                    color: '#0984e3',
+                  },
+                  color: theme.palette.lightblackcolorCode.main
+                }}
+              >
+                {product.TamilFont}
+              </Typography>
+
 
               <Typography variant="body2" color="text.secondary" sx={{ fontFamily: 'inherit' }}>
                 {product.quantity}
               </Typography>
             </Box>
-    
 
-  
-        
-            <Box         sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center',
-                    gap: '8px',
-                    marginTop: 'auto',
-                    padding: '8px',
-                    background: 'rgba(255, 255, 255, 0.1)',
-                    backdropFilter: 'blur(8px)',
-                    borderRadius: '8px',
-                    border: '1px solid rgba(255, 255, 255, 0.18)'
-                  }}>
+
+
+
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                marginTop: 'auto',
+                padding: '8px',
+                background: 'rgba(255, 255, 255, 0.1)',
+                backdropFilter: 'blur(8px)',
+                borderRadius: '8px',
+                border: '1px solid rgba(255, 255, 255, 0.18)'
+              }}>
               <Typography
                 variant="body2"
                 sx={{ color: theme.palette.lightblackcolorCode.main, fontSize: '16px', lineHeight: '24px', fontFamily: 'inherit' }}
@@ -577,7 +606,7 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
                   }
                 }}
                 id={product.Id}
-                onClick={(e) => { handleIncrement(e);handleAuthDrawerToggle(); }}
+                onClick={(e) => { handleIncrement(e); handleAuthDrawerToggle(); }}
               >
                 Add to Cart
               </Button>
@@ -606,7 +635,7 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
           </>
         )}
       </CardContent>
-       <AppCart CartDrawerOpen={cartDrawerOpen} setLoginDrawerOpen={setLoginDrawerOpen} handleAuthDrawerToggle={handleAuthDrawerToggle} />
+      <AppCart CartDrawerOpen={cartDrawerOpen} setLoginDrawerOpen={setLoginDrawerOpen} handleAuthDrawerToggle={handleAuthDrawerToggle} />
     </Card>
 
   );

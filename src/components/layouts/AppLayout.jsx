@@ -11,8 +11,8 @@ import { API_FetchCategory } from '../../services/categoryServices';
 import { API_FetchMyFavoriteProducts } from '../../services/userServices';
 import * as actionType from '../../redux/actionType';
 import { connect } from 'react-redux';
-import BlinkingSaleImage from '../BlinkingSaleImage';
-import FloatingContactImage from '../FloatingContactImage';
+//import BlinkingSaleImage from '../BlinkingSaleImage';
+//import FloatingContactImage from '../FloatingContactImage';
 
 const AppLayout = (props) => {
 
@@ -89,8 +89,8 @@ const AppLayout = (props) => {
         </Container>
       </Box>
       <AppFooter CompanyDetails={CompanyDetails} />
-      <BlinkingSaleImage/>
-      <FloatingContactImage/>
+      {/* <BlinkingSaleImage/> */}
+      {/* <FloatingContactImage/> */}
     </>
   );
 };

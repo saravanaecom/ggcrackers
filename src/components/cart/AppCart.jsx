@@ -27,7 +27,7 @@ import { useCart } from '../../context/CartContext';
 import { ServerURL } from '../../server/serverUrl';
 import { API_FetchMinimumOrderAmount } from '../../services/checkoutServices';
 
-const drawerWidth = 380;
+const drawerWidth = 300;
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',

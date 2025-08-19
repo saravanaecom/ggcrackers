@@ -15,6 +15,7 @@ import { useAuth } from '../../context/authContext';
 import { useCart } from '../../context/CartContext';
 import { useTheme } from '@mui/material/styles';
 import { ServerURL } from '../../server/serverUrl';
+import YouTubeIcon from "@mui/icons-material/YouTube";
 
 const drawerContent = (
   <List>
@@ -45,7 +46,7 @@ export default function AppHeader() {
   const [cartDrawerOpen, setCartDrawerOpen] = useState(false);
   const [forgetPasswordDrawerOpen, setForgetPasswordDrawerOpen] = useState(false);
   const [cartItemsCount, setCartItemsCount] = useState(0);
-  const {cartItems} = useCart();
+  const { cartItems } = useCart();
   const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleDrawer = (open) => () => {
@@ -100,10 +101,15 @@ export default function AppHeader() {
     }
   };
 
+
+  const handleClick = () => {
+    window.open("https://www.youtube.com/@YourChannelName", "_blank"); // replace with your YouTube link
+  };
+
   // Handle scroll event to animate header
-  useEffect(() => {   
+  useEffect(() => {
     setCartItemsCount(cartItems.length ? cartItems.length : 0);
-    
+
     const handleScroll = () => {
       if (window.scrollY > 150) {
         setIsScrolled(true);
@@ -164,18 +170,45 @@ export default function AppHeader() {
                 zIndex: 9,
               }}
             >
-              <AppSearchBox/>              
+              <AppSearchBox />
             </Grid>
 
             {/* Navigation and User Action Section */}
             <Grid item xs={6} sm={3} md={5} sx={{ display: { xs: 'none', sm: 'flex' }, justifyContent: 'flex-end', alignItems: 'center', gap: '30px' }}>
-              <Button sx={{ color: '#333', textTransform: 'none', display: { xs: 'none', md: 'block' } }}>
-                <Typography component={"p"} sx={{ fontFamily: 'inherit', fontWeight: 600 }}>WhatsApp Only<br />
-                <span style={{fontSize: 14}}>{ServerURL.COMPANY_MOBILE}</span>
+              <Button
+                onClick={handleClick}
+                startIcon={<YouTubeIcon sx={{ color: "red", fontSize: 30 }} />}
+                sx={{
+                  color: "#333",
+                  textTransform: "none",
+                  display: { xs: "none", md: "flex" },
+                  alignItems: "center",
+                  gap: 1,
+                }}
+
+
+              >
+                <Typography
+                  component="div"
+                  sx={{
+                    fontFamily: "inherit",
+                    fontWeight: 700,
+                    textAlign: "left",
+                    fontSize: 18,
+                    color: "#FF0000", // YouTube red
+                    letterSpacing: 0.5,
+                  }}
+                >
+                  YouTube
+                  <br />
+                  <span style={{ fontSize: 14, fontWeight: 400, color: "#555" }}>
+                    {ServerURL.COMPANY_MOBILE}
+                  </span>
                 </Typography>
+
               </Button>
               <Button sx={{ color: '#333', fontWeight: 600, fontFamily: 'inherit', textTransform: 'none', display: { xs: 'none', md: 'none' } }}><Link to={"/"}>Home</Link></Button>
-              {!isAuthenticated && (
+              {/* {!isAuthenticated && (
                 <>
                   <Button
                     id={"register_btn"}
@@ -194,9 +227,9 @@ export default function AppHeader() {
                     <PersonIcon sx={{ ml: 1 }} />
                   </Button>
                 </>
-              )}
+              )} */}
 
-              {isAuthenticated && (
+              {/* {isAuthenticated && (
                 <Button
                   id={"profile_btn"}
                   sx={{ color: '#333', textTransform: 'none' }}
@@ -204,15 +237,15 @@ export default function AppHeader() {
                   <PersonIcon sx={{ ml: 1 }} />
                   <Typography sx={{ fontFamily: 'inherit', fontWeight: 600 }}><Link to={"/myaccount"}>{isAuthenticatedName !== '' ? isAuthenticatedName : 'Profile'}</Link></Typography>
                 </Button>
-              )}
+              )} */}
 
               <IconButton color="inherit" onClick={handleAuthDrawerToggle}>
                 <Badge badgeContent={cartItemsCount} sx={{
-                    '& .MuiBadge-badge': {
-                      backgroundColor: theme.palette.basecolorCode.main, 
-                      color: theme.palette.footertextcolorCode.main
-                    },
-                  }}>
+                  '& .MuiBadge-badge': {
+                    backgroundColor: theme.palette.basecolorCode.main,
+                    color: theme.palette.footertextcolorCode.main
+                  },
+                }}>
                   <ShoppingBagIcon />
                 </Badge>
               </IconButton>

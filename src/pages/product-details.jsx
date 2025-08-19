@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Box, Container, Grid, Typography, FormControl, Select, MenuItem, Button, CircularProgress, Backdrop,Chip } from '@mui/material';
+import { Box, Container, Grid, Typography, FormControl, Select, MenuItem, Button, CircularProgress, Backdrop, Chip } from '@mui/material';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import NoImage from '../assets/no-image.png';
@@ -50,7 +50,7 @@ const ProductDetails = (props) => {
             if (Array.isArray(fetchedProductDetails) && fetchedProductDetails.length > 0) {
                 const product = fetchedProductDetails[0];
                 setProductDetails(product);
-                console.log( product)
+                console.log(product)
                 setTotalPrice(product.Price);
 
                 // Filter and flatten the image list
@@ -87,9 +87,9 @@ const ProductDetails = (props) => {
         const productId = encodedId ? decodeURIComponent(encodedId) : null;
         setProductId(atob(productId));
         if (productId) {
-            GetProductDetails(atob(productId));           
+            GetProductDetails(atob(productId));
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [location.search, props.get_fav_lists]);
 
     const handleProductWeightChange = (event, ProductWeightLists) => {
@@ -216,51 +216,51 @@ const ProductDetails = (props) => {
     };
 
     //Add fav product
-  const handleAddFavProduct = async (ProductId, event, status) => {
-    event.stopPropagation();
-    setIsFavoriteProduct(1);
-    let userId = localStorage.getItem("userId");
-    userId = userId ? decodeURIComponent(userId) : null;
-    try {
-      const response = await API_InsertMyFavoriteProducts(ProductId,  Number(atob(userId)));
-      if (response.DeleteStatus === 0 && response.ItemmasterRefid !== 0) {
-        await FetchMyFavoriteProducts(atob(userId));
+    const handleAddFavProduct = async (ProductId, event, status) => {
+        event.stopPropagation();
         setIsFavoriteProduct(1);
-      }
-      else{
-        setIsFavoriteProduct(0);
-      }
-    } catch (error) {
-      setIsFavoriteProduct(0);
-    }
-  };
+        let userId = localStorage.getItem("userId");
+        userId = userId ? decodeURIComponent(userId) : null;
+        try {
+            const response = await API_InsertMyFavoriteProducts(ProductId, Number(atob(userId)));
+            if (response.DeleteStatus === 0 && response.ItemmasterRefid !== 0) {
+                await FetchMyFavoriteProducts(atob(userId));
+                setIsFavoriteProduct(1);
+            }
+            else {
+                setIsFavoriteProduct(0);
+            }
+        } catch (error) {
+            setIsFavoriteProduct(0);
+        }
+    };
 
-  const FetchMyFavoriteProducts = async (userId) => {
-    try {
-        const favlist = await API_FetchMyFavoriteProducts(userId);
-        if(favlist !== undefined && favlist.length !== 0){
-          props.setFavouriteLists(favlist);
-        }        
-    } catch (error) {
-        console.error("Error fetching favorite product lists:", error);
-    }
-};
+    const FetchMyFavoriteProducts = async (userId) => {
+        try {
+            const favlist = await API_FetchMyFavoriteProducts(userId);
+            if (favlist !== undefined && favlist.length !== 0) {
+                props.setFavouriteLists(favlist);
+            }
+        } catch (error) {
+            console.error("Error fetching favorite product lists:", error);
+        }
+    };
 
-  //Remove fav list
-  const handleRemoveFavProduct = async (ProductId, event) => {
-    event.stopPropagation();
-    let userId = localStorage.getItem("userId");
-    userId = userId ? decodeURIComponent(userId) : null;
-    try {
-      const response = await API_DeleteMyFavoriteProducts(ProductId, Number(atob(userId)));
-      if (response.DeleteStatus === 1 && response.ItemmasterRefid !== 0) {
-        await FetchMyFavoriteProducts(atob(userId));
-        setIsFavoriteProduct(0);
-      }
-    } catch (error) {
-      setIsFavoriteProduct(1);
-    }
-  };
+    //Remove fav list
+    const handleRemoveFavProduct = async (ProductId, event) => {
+        event.stopPropagation();
+        let userId = localStorage.getItem("userId");
+        userId = userId ? decodeURIComponent(userId) : null;
+        try {
+            const response = await API_DeleteMyFavoriteProducts(ProductId, Number(atob(userId)));
+            if (response.DeleteStatus === 1 && response.ItemmasterRefid !== 0) {
+                await FetchMyFavoriteProducts(atob(userId));
+                setIsFavoriteProduct(0);
+            }
+        } catch (error) {
+            setIsFavoriteProduct(1);
+        }
+    };
     // Slick Slider settings
     const settings1 = {
         customPaging: function (index) {
@@ -273,9 +273,9 @@ const ProductDetails = (props) => {
                     }}
                     src={
                         imageLists[index] === '/productimages/Undefined.jpg' ||
-                        imageLists[index] === '/productimages/Undefined.png' ||
-                        imageLists[index] === null ||
-                        imageLists[index] === ''
+                            imageLists[index] === '/productimages/Undefined.png' ||
+                            imageLists[index] === null ||
+                            imageLists[index] === ''
                             ? NoImage
                             : ImagePathRoutes.ProductImagePath + imageLists[index]
                     }
@@ -298,7 +298,7 @@ const ProductDetails = (props) => {
 
     return (
         <>
-             <CreackersEffect/>
+            <CreackersEffect />
             <Backdrop sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }} open={backdropOpen}>
                 <CircularProgress color="inherit" />
             </Backdrop>
@@ -316,28 +316,28 @@ const ProductDetails = (props) => {
             <Container maxWidth="lg" sx={{ my: 3 }}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={5}>
-                    <Slider {...settings1}>
-    {imageLists.map((image, index) => (
-        <div key={index}>
-            <img
-                style={{
-                    width: '100%',
-                    height: 'auto', // Maintain aspect ratio
-                    objectFit: 'contain', // Ensure image is fully visible without distortion
-                }}
-                src={
-                    ImagePathRoutes.ProductImagePath + image === '/productimages/Undefined.jpg' ||
-                    ImagePathRoutes.ProductImagePath + image === '/productimages/Undefined.png' ||
-                    ImagePathRoutes.ProductImagePath + image === null ||
-                    ImagePathRoutes.ProductImagePath + image === ''
-                        ? NoImage
-                        : ImagePathRoutes.ProductImagePath + image
-                }
-                alt={productDetails.Description || "Product name is not available " + (index + 1)}
-            />
-        </div>
-    ))}
-</Slider>
+                        <Slider {...settings1}>
+                            {imageLists.map((image, index) => (
+                                <div key={index}>
+                                    <img
+                                        style={{
+                                            width: '100%',
+                                            height: 'auto', // Maintain aspect ratio
+                                            objectFit: 'contain', // Ensure image is fully visible without distortion
+                                        }}
+                                        src={
+                                            ImagePathRoutes.ProductImagePath + image === '/productimages/Undefined.jpg' ||
+                                                ImagePathRoutes.ProductImagePath + image === '/productimages/Undefined.png' ||
+                                                ImagePathRoutes.ProductImagePath + image === null ||
+                                                ImagePathRoutes.ProductImagePath + image === ''
+                                                ? NoImage
+                                                : ImagePathRoutes.ProductImagePath + image
+                                        }
+                                        alt={productDetails.Description || "Product name is not available " + (index + 1)}
+                                    />
+                                </div>
+                            ))}
+                        </Slider>
                     </Grid>
                     <Grid item xs={12} sm={7}>
                         <Box>
@@ -346,23 +346,23 @@ const ProductDetails = (props) => {
                                 {productDetails.Description || "Product name is not available"}
                             </Typography>
                             <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '100px', pb: 1 }}>
-                            {productDetails.MRP && currentPrice && productDetails.MRP > currentPrice && (
-    <Typography sx={{
-        position: 'relative',
-        left: '8px',
-        backgroundColor: '#fff6e0',
-        color: '#5d3e03',
-        padding: '2px 5px',
-        borderRadius: '3px',
-        border: '1px solid #90784159',
-        fontSize: '12px',
-        fontWeight: 'bold',
-        fontFamily: 'inherit',
-        display: 'block'
-    }}>
-        {Math.round(((productDetails.MRP - currentPrice) / productDetails.MRP) * 100)}% OFF
-    </Typography>
-)}
+                                {productDetails.MRP && currentPrice && productDetails.MRP > currentPrice && (
+                                    <Typography sx={{
+                                        position: 'relative',
+                                        left: '8px',
+                                        backgroundColor: '#fff6e0',
+                                        color: '#5d3e03',
+                                        padding: '2px 5px',
+                                        borderRadius: '3px',
+                                        border: '1px solid #90784159',
+                                        fontSize: '12px',
+                                        fontWeight: 'bold',
+                                        fontFamily: 'inherit',
+                                        display: 'block'
+                                    }}>
+                                        {Math.round(((productDetails.MRP - currentPrice) / productDetails.MRP) * 100)}% OFF
+                                    </Typography>
+                                )}
                                 <Box sx={{
                                     position: 'relative',
                                     cursor: 'pointer',
@@ -526,140 +526,106 @@ const ProductDetails = (props) => {
                         </Box>
 
                         <Box>
-                        {productDetails.Aproximiatedays ? (
-        <Box className="mt-4">
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: 600,
-              fontSize: 14,
-              color: 'gray',
-              textAlign: 'left',
-            }}
-          >
-            Estimated Delivery: 
-            <span className="text-blue-600 ml-2">{productDetails.Aproximiatedays}</span>
-          </Typography>
-        </Box>
-      ) : (
-        <Box className="mt-4">
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: 600,
-              fontSize: 14,
-              color: 'gray',
-              textAlign: 'left',
-            }}
-          >
-            Estimated Delivery: 
-            <span className="text-red-600 ml-2">Not Available</span>
-          </Typography>
-        </Box>
-      )}
+                            {productDetails.Aproximiatedays ? (
+                                <Box className="mt-4">
+                                    <Typography
+                                        variant="h6"
+                                        sx={{
+                                            fontWeight: 600,
+                                            fontSize: 14,
+                                            color: "gray",
+                                            textAlign: "left",
+                                        }}
+                                    >
+                                        <a
+                                            href={productDetails.Aproximiatedays}   // 👈 your YouTube link
+                                            target="_blank"                        // 👈 opens in new tab
+                                            rel="noopener noreferrer"
+                                            style={{ color: "inherit", textDecoration: "none", cursor: "pointer" }}
+                                        >
+                                            Click Here To See Video
+                                            <span className="text-blue-600 ml-2">
+                                                {productDetails.Aproximiatedays}
+                                            </span>
+                                        </a>
+                                    </Typography>
 
-                            
+                                </Box>
+                            ) : (
+                                <Box className="mt-4">
+
+                                </Box>
+                            )}
+
+
                         </Box>
 
 
                         <Box className="mt-4">
-  {/* Our Choice */}
-  {productDetails.OurChoice === 1 && (
-    <div 
-      style={{ 
-        height: '30px',
-        width: '100px',
-        fontWeight: 'bold', 
-        fontSize: '12px', 
-        color: 'green', 
-        padding: '4px 8px',
-        border: '1px solid green',
-        borderRadius: '4px',
-        backgroundColor: '#f0fff0'
-      }}
-    >
-      Our Choice
-    </div>
-  )}
+                            {/* Our Choice */}
+                            {productDetails.OurChoice === 1 && (
+                                <div
+                                    style={{
+                                        height: '30px',
+                                        width: '100px',
+                                        fontWeight: 'bold',
+                                        fontSize: '12px',
+                                        color: 'green',
+                                        padding: '4px 8px',
+                                        border: '1px solid green',
+                                        borderRadius: '4px',
+                                        backgroundColor: '#f0fff0'
+                                    }}
+                                >
+                                    Our Choice
+                                </div>
+                            )}
 
-  {/* Return Policy */}
-  {productDetails.ReturnPolicyDays ? (
-    <div 
-      style={{ 
-        height: '30px',
-        width: '200px',
-        marginTop: '8px',
-        fontWeight: 'bold', 
-        fontSize: '12px', 
-        color: 'blue',
-        padding: '4px 8px',
-        border: '1px solid blue',
-        borderRadius: '4px',
-        backgroundColor: '#f0f8ff'
-      }}
-    >
-      Return available in {productDetails.ReturnPolicyDays}
-    </div>
-  ) : (
-    <div 
-      style={{ 
-        height: '30px',
-        width: '200px',
-        marginTop: '8px',
-        fontWeight: 'bold', 
-        fontSize: '12px', 
-        color: 'red',
-        padding: '4px 8px',
-        border: '1px solid red',
-        borderRadius: '4px',
-        backgroundColor: '#fff0f0'
-      }}
-    >
-      Return not available
-    </div>
-  )}
-</Box>
+
+
+
+                        </Box>
 
 
 
 
 
                         <Box sx={{ pb: 4, pt: 6.5 }}>
-      {/* Title */}
-      <Typography sx={{ fontSize: 18, fontWeight: 600, textAlign: "left", pb: 1 }}>
-        About Product
-      </Typography>
+                            {/* Title */}
+                            <Typography sx={{ fontSize: 18, fontWeight: 600, textAlign: "left", pb: 1 }}>
+                                About Product
+                            </Typography>
 
-      {/* Product Description */}
-      {productDetails.ProductDescription ? (
-        <Typography
-          component="div"
-          sx={{
-            textAlign: "left",
-            fontSize: 12,
-            lineHeight: 1.6,
-            fontWeight: 600,
-            fontFamily: "'Roboto', sans-serif", // Example font, customize as needed
-          }}
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(productDetails.ProductDescription),
-          }}
-        />
-      ) : (
-        // Fallback Description
-        <Typography
-          component="p"
-          sx={{
-            textAlign: "left",
-            fontSize: 12,
-            lineHeight: 1.6,
-            fontFamily: "'Roboto', sans-serif", // Example font, customize as needed
-          }}
-        >
-          High-Quality Materials: Durable build with premium wood, metal, or synthetic materials for long-lasting performance. Superior Sound Output: Engineered for clear, rich, and vibrant tones. Ergonomic Design: Comfortable to use for extended practice or performance sessions. Customizable Settings: Adjustable tuners, frets, or keys for personalized sound. Lightweight and Portable: Easy to carry and ideal for gigs and rehearsals.
-        </Typography>
-      )}
-    </Box>
+                            {/* Product Description */}
+                            {productDetails.ProductDescription ? (
+                                <Typography
+                                    component="div"
+                                    sx={{
+                                        textAlign: "left",
+                                        fontSize: 12,
+                                        lineHeight: 1.6,
+                                        fontWeight: 600,
+                                        fontFamily: "'Roboto', sans-serif", // Example font, customize as needed
+                                    }}
+                                    dangerouslySetInnerHTML={{
+                                        __html: DOMPurify.sanitize(productDetails.ProductDescription),
+                                    }}
+                                />
+                            ) : (
+                                // Fallback Description
+                                <Typography
+                                    component="p"
+                                    sx={{
+                                        textAlign: "left",
+                                        fontSize: 12,
+                                        lineHeight: 1.6,
+                                        fontFamily: "'Roboto', sans-serif", // Example font, customize as needed
+                                    }}
+                                >
+                                    High-Quality Materials: Durable build with premium wood, metal, or synthetic materials for long-lasting performance. Superior Sound Output: Engineered for clear, rich, and vibrant tones. Ergonomic Design: Comfortable to use for extended practice or performance sessions. Customizable Settings: Adjustable tuners, frets, or keys for personalized sound. Lightweight and Portable: Easy to carry and ideal for gigs and rehearsals.
+                                </Typography>
+                            )}
+                        </Box>
 
                     </Grid>
                 </Grid>
@@ -675,15 +641,15 @@ const ProductDetails = (props) => {
 
 
 const mapStateToProps = (state) => {
-    return { 
-      get_fav_lists: state.get_fav_lists, // Get favourite lists from Redux state (Wishlists)
+    return {
+        get_fav_lists: state.get_fav_lists, // Get favourite lists from Redux state (Wishlists)
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    return {    
-      setFavouriteLists: (data) => dispatch({type: actionType.GET_GLOBAL_FAVOURITE_LISTS, payload: data})
+    return {
+        setFavouriteLists: (data) => dispatch({ type: actionType.GET_GLOBAL_FAVOURITE_LISTS, payload: data })
     };
-  };
-  
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);
