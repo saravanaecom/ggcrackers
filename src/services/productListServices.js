@@ -63,6 +63,72 @@ export const fetchSelectProduct = async ( ) => {
     }
 };
 
+
+export const fetchtopproductlist = async ( ) => {
+    let objlist = {
+        Comid:ServerURL.COMPANY_REF_ID,
+    };
+    
+    try {
+        const response = await fetch(`${APIRoutes.GET_TOP_PRODUCT_LIST}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            
+            },
+            body: JSON.stringify(objlist),
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+
+        const data = await response.json();
+        
+        if (!data || !Array.isArray(data)) {
+            throw new Error('No data found.');
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Failed to fetch product details:', error);
+        throw error; 
+    }
+};
+
+
+export const fetchKidslist = async ( ) => {
+    let objlist = {
+        Comid:ServerURL.COMPANY_REF_ID,
+    };
+    
+    try {
+        const response = await fetch(`${APIRoutes.GET_KIDS_PRODUCT_LIST}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            
+            },
+            body: JSON.stringify(objlist),
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+
+        const data = await response.json();
+        
+        if (!data || !Array.isArray(data)) {
+            throw new Error('No data found.');
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Failed to fetch product details:', error);
+        throw error; 
+    }
+};
+
 export const API_FetchOfferFastMovingProduct = async () => {
     let objData = "";
     let objlist = {

@@ -11,22 +11,42 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--primary-color);
+  overflow-x: hidden;
 }
 
+* {
+  box-sizing: border-box;
+}
 
 .offer_box {
-  margin-top: "64px";
+  margin-top: 64px;
 }
 
-@media (max-width: 786px) {
+@media (max-width: 768px) {
   .offer_slider {
+    display: none;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  .container {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .offer_box {
     display: none;
   }
 }
 
-@media (min-width: 789px) {
-  .offer_box {
-    display: none;
+@media (max-width: 475px) {
+  .container {
+    padding-left: 4px !important;
+    padding-right: 4px !important;
   }
 }
 

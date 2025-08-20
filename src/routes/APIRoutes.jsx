@@ -68,6 +68,8 @@ export const APIRoutes = {
     //Wishlist product (favorite)
     INSERT_FAVORITE_PRODUCT: `${ServerURL.PRODUCTION_HOST_URL}api/WhishlistApp/InsertWishlist`,
     GET_PRODUCT_BY_FAVORITE_LISTS: `${ServerURL.PRODUCTION_HOST_URL}api/WebMobileApp/SelectProductByWishlist`,
+    GET_TOP_PRODUCT_LIST: `${ServerURL.PRODUCTION_HOST_URL}api/WebMobileApp/SelectFeatureProdcut`,
+    GET_KIDS_PRODUCT_LIST: `${ServerURL.PRODUCTION_HOST_URL}api/WebMobileApp/SelectOfferProdcut`,
     DELETE_FAVORITE_PRODUCT: `${ServerURL.PRODUCTION_HOST_URL}api/WhishlistApp/DeleteWishlist`,    
 };
 

@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 import * as actionType from '../redux/actionType';
 import DOMPurify from "dompurify";
 import CreackersEffect from '../components/CreackersEffect';
-
+import  FloatingOffer from '../components/FloatingOffer';
 
 const ProductDetails = (props) => {
     const theme = useTheme();
@@ -313,9 +313,9 @@ const ProductDetails = (props) => {
 
                 </Box>
             </Box>
-            <Container maxWidth="lg" sx={{ my: 3 }}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={5}>
+            <Container maxWidth="lg" sx={{ my: { xs: 1, md: 3 }, px: { xs: 1, md: 3 } }}>
+                <Grid container spacing={{ xs: 2, md: 3 }}>
+                    <Grid item xs={12} sm={12} md={5}>
                         <Slider {...settings1}>
                             {imageLists.map((image, index) => (
                                 <div key={index}>
@@ -339,7 +339,7 @@ const ProductDetails = (props) => {
                             ))}
                         </Slider>
                     </Grid>
-                    <Grid item xs={12} sm={7}>
+                    <Grid item xs={12} sm={12} md={7}>
                         <Box>
                             <Box sx={{ pb: 1 }}><BreadCrumbs CategoryId={productDetails.CId} CategoryName={productDetails.CategoryName} SubCateoryId={productDetails.SId} SubCategoryName={productDetails.SubCategoryName} ProductName={productDetails.Description} /></Box>
                             <Typography component={"h4"} sx={{ fontSize: 20, fontWeight: 600, fontFamily: "inherit", textAlign: "left", pb: 1.5 }}>
@@ -424,7 +424,7 @@ const ProductDetails = (props) => {
                             <Button
                                 variant="outlined"
                                 sx={{
-                                    width: "20%",
+                                    width: { xs: "40%", sm: "30%", md: "20%" },
                                     display: quantity !== 0 ? 'flex' : 'none',
                                     alignItems: 'center',
                                     justifyContent: 'space-between',
@@ -432,7 +432,7 @@ const ProductDetails = (props) => {
                                     fontFamily: 'inherit',
                                     border: '1px solid',
                                     borderColor: theme.palette.basecolorCode.main,
-                                    padding: { xs: '6px 0px', sm: '7px 0px', md: '7.2px 0px' },
+                                    padding: { xs: '8px 0px', sm: '7px 0px', md: '7.2px 0px' },
                                     '&:hover': {
                                         background: 'none',
                                         border: '1px solid',
@@ -483,7 +483,7 @@ const ProductDetails = (props) => {
                                     sx={{
                                         display: quantity === 0 ? 'block' : 'none',
                                         marginTop: '10px',
-                                        width: { xs: 'auto', sm: 'auto', md: "30%", lg: "20%" },
+                                        width: { xs: '50%', sm: '40%', md: "30%", lg: "20%" },
                                         textTransform: 'none',
                                         fontFamily: 'inherit',
                                         fontWeight: 600,
@@ -590,9 +590,9 @@ const ProductDetails = (props) => {
 
 
 
-                        <Box sx={{ pb: 4, pt: 6.5 }}>
+                        <Box sx={{ pb: { xs: 2, md: 4 }, pt: { xs: 3, md: 6.5 } }}>
                             {/* Title */}
-                            <Typography sx={{ fontSize: 18, fontWeight: 600, textAlign: "left", pb: 1 }}>
+                            <Typography sx={{ fontSize: { xs: 16, md: 18 }, fontWeight: 600, textAlign: "left", pb: 1 }}>
                                 About Product
                             </Typography>
 
@@ -602,10 +602,10 @@ const ProductDetails = (props) => {
                                     component="div"
                                     sx={{
                                         textAlign: "left",
-                                        fontSize: 12,
+                                        fontSize: { xs: 11, md: 12 },
                                         lineHeight: 1.6,
                                         fontWeight: 600,
-                                        fontFamily: "'Roboto', sans-serif", // Example font, customize as needed
+                                        fontFamily: "'Roboto', sans-serif",
                                     }}
                                     dangerouslySetInnerHTML={{
                                         __html: DOMPurify.sanitize(productDetails.ProductDescription),
@@ -617,9 +617,9 @@ const ProductDetails = (props) => {
                                     component="p"
                                     sx={{
                                         textAlign: "left",
-                                        fontSize: 12,
+                                        fontSize: { xs: 11, md: 12 },
                                         lineHeight: 1.6,
-                                        fontFamily: "'Roboto', sans-serif", // Example font, customize as needed
+                                        fontFamily: "'Roboto', sans-serif",
                                     }}
                                 >
                                     High-Quality Materials: Durable build with premium wood, metal, or synthetic materials for long-lasting performance. Superior Sound Output: Engineered for clear, rich, and vibrant tones. Ergonomic Design: Comfortable to use for extended practice or performance sessions. Customizable Settings: Adjustable tuners, frets, or keys for personalized sound. Lightweight and Portable: Easy to carry and ideal for gigs and rehearsals.
@@ -635,6 +635,7 @@ const ProductDetails = (props) => {
                     <RelatedProducts ProductId={productId} />
                 </Box>
             </Container>
+             <FloatingOffer/>
         </>
     );
 };

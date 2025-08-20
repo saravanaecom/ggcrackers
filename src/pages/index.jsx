@@ -11,8 +11,8 @@ import AboutUsSection from "../components/Home/AboutUsSection";
 import slideparallax from '../assets/slideparallax.jpg';
 import { Box } from "@mui/material";
 import CreackersEffect from '../components/CreackersEffect';
-
-
+import CrackerShowcaseCards from '../components/CrackerShowcaseCards';
+import FloatingOffer from '../components/FloatingOffer';
 export default function HomePage() {
     return (
         <>
@@ -24,15 +24,27 @@ export default function HomePage() {
                 <ImageCategorySlider />
                 <ProductByIndexPage/>                 */}
                 <AboutUsSection/>
+              <  CrackerShowcaseCards/>
                 <ProductCategories/>
+
                 <ImageCategorySlider />
-                <Box>
-                    <img src={slideparallax} alt="slideparallax"/> 
+                <Box sx={{ width: '100%', overflow: 'hidden' }}>
+                    <img 
+                        src={slideparallax} 
+                        alt="slideparallax"
+                        style={{
+                            width: '100%',
+                            height: 'auto',
+                            maxWidth: '100%',
+                            display: 'block'
+                        }}
+                    /> 
                 </Box>
                 <OfferFastMovingProduct/>
                 <BrandSlider />
                 <HeroSection />
                 <CreackersEffect/>
+                <FloatingOffer/>
         </>
     )
 };

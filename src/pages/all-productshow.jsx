@@ -474,59 +474,80 @@ const ProductList = () => {
           {/* Mobile Drawer Toggle Button */}
        
 
-          {
-          (offerProducts === null && relatedProducts === null && newProducts === null) && (
-            <Grid item xs={2} md={2} sx={{ display: { xs: 'flex', md: 'none' }, position: '', top: 0 }}>
-              <Drawer
-                variant="permanent"
+          {(offerProducts === null && relatedProducts === null && newProducts === null) && (
+            <Grid item xs={2} sx={{ display: { xs: 'block', md: 'none' } }}>
+              <Box
                 sx={{
-                  width: '80px',
-                  flexShrink: 0,
-                  position: "sticky",
-                  '& .MuiDrawer-paper': {
-                    width: '80px',
-                    boxSizing: 'border-box',
-                    height: '100%', // Adjust height to avoid white space
-                    display: 'flex',
-                    flexDirection: 'column',
-                    overflowY: 'auto', 
-                    position: "fixed",
-                    top: isScrolled ? 100 : 250,
-                   
+                  position: 'fixed',
+                  left: 0,
+                  top: isScrolled ? 80 : 120,
+                  width: '70px',
+                  height: 'calc(100vh - 120px)',
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(10px)',
+                  borderRight: '1px solid #e0e0e0',
+                  zIndex: 1000,
+                  overflowY: 'auto',
+                  overflowX: 'hidden',
+                  '&::-webkit-scrollbar': {
+                    width: '3px',
+                  },
+                  '&::-webkit-scrollbar-track': {
+                    background: '#f1f1f1',
+                  },
+                  '&::-webkit-scrollbar-thumb': {
+                    background: '#888',
+                    borderRadius: '3px',
                   },
                 }}
               >
-                <List>
+                <List sx={{ padding: 0 }}>
                   {subcategories.map((category, index) => (
-                    <ListItemStyled
+                    <ListItem
                       key={index}
                       onClick={() => handleSubCategoryClick(category.SubCategory, category.Id)}
                       sx={{
-                        borderLeft: activeCategory === category.SubCategory ? `4px solid ${theme.palette.basecolorCode.main}` : 'none',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        padding: '8px 4px',
+                        minHeight: '80px',
+                        cursor: 'pointer',
+                        borderBottom: '1px solid #f0f0f0',
                         backgroundColor: activeCategory === category.SubCategory ? '#3bb77e1c' : 'transparent',
-                        color: activeCategory === category.SubCategory ? '#3BB77E' : '#253D4E',
-                        '& .MuiListItemIcon-root': {
-                          color: activeCategory === category.SubCategory ? '#000' : 'inherit',
-                        },
                         '&:hover': {
                           backgroundColor: '#3bb77e1c',
-                          color: "#3BB77E",
                         },
                       }}
                     >
-                      <Avatar src={category.ImagePath ? ImagePathRoutes.SubCategoryImagePath + category.ImagePath : "https://www.healthysteps.in/categoryimages/All-categories.png"} alt={category.SubCategory} />
-                      <IconLabel>{category.SubCategory}</IconLabel>
-                    </ListItemStyled>
+                      <Avatar 
+                        src={category.ImagePath ? ImagePathRoutes.SubCategoryImagePath + category.ImagePath : AllCategory}
+                        alt={category.SubCategory}
+                        sx={{ width: 35, height: 35, mb: 0.5 }}
+                      />
+                      <Typography
+                        sx={{
+                          fontSize: '9px',
+                          textAlign: 'center',
+                          lineHeight: 1.2,
+                          color: activeCategory === category.SubCategory ? '#3BB77E' : '#666',
+                          fontWeight: activeCategory === category.SubCategory ? 600 : 400,
+                          wordBreak: 'break-word',
+                          hyphens: 'auto',
+                        }}
+                      >
+                        {category.SubCategory}
+                      </Typography>
+                    </ListItem>
                   ))}
                 </List>
-              </Drawer>
+              </Box>
             </Grid>
           )}
 
 
 
           {/* Right-side Content Area */}
-          <Grid item xs={12} md={offerProducts === null && relatedProducts === null && newProducts === null ? 10 : 12} sx={{ p: 3 }}>
+          <Grid item xs={12} md={offerProducts === null && relatedProducts === null && newProducts === null ? 10 : 12} sx={{ p: { xs: 1, md: 3 }, ml: { xs: offerProducts === null && relatedProducts === null && newProducts === null ? '70px' : 0, md: 0 } }}>
             <Grid container sx={{ px: { xs: 0, md: 0 }, justifyContent: "flex-start", gap: "0px 18px" }}>
               {/* update by for brand search start  */}
               {/* update by   for brand search end  */}
@@ -538,7 +559,7 @@ const ProductList = () => {
                   flexDirection: { xs: "column", md: "row" },
                   justifyContent: "space-between",
                   position: "relative",
-                  left: { xs: 80, md: 0 },
+                  left: { xs: 0, md: 0 },
                   alignItems: "center",
                 }}
               >
@@ -630,37 +651,48 @@ const ProductList = () => {
               </Box>
 
               {/* Render filtered product list */}
-              <Grid container spacing={2} >
-           {loading ? (
-          <Box display="flex" justifyContent="center" alignItems="center" width="100%">
-          <CircularProgress />
-          </Box>
-           ) : productLists.length > 0 ? (
-          productLists.map((product) => (
-          <Grid item xs={12} md={3} key={product.id} sx={{  position:{xs:"relative"},left:{xs:50}}}> {/* Each card takes half the row */}
-        <ProductCard
-          product={product}
-          isLoading={loading}
-          offerProducts={offerProducts}
-          relatedProducts={relatedProducts}
-          newProducts={newProducts}
-        />
-         </Grid>
-          ))
-        ) : (
-       <Typography
-       variant="h6"
-       sx={{
-        mt: 3,
-        width: "100%",
-        textAlign: "center",
-        color: theme.palette.basecolorCode.main,
-      }}
-       >
-      No products available.
-      </Typography>
-    )}
-             </Grid>
+              <Grid container spacing={{ xs: 1, sm: 2 }} sx={{ mt: 2 }}>
+                {loading ? (
+                  <Box display="flex" justifyContent="center" alignItems="center" width="100%" sx={{ py: 4 }}>
+                    <CircularProgress />
+                  </Box>
+                ) : productLists.length > 0 ? (
+                  productLists.map((product) => (
+                    <Grid 
+                      item 
+                      xs={6} 
+                      sm={4} 
+                      md={3} 
+                      key={product.id} 
+                      sx={{ 
+                        display: 'flex',
+                        justifyContent: 'center',
+                        mb: { xs: 2, sm: 1 }
+                      }}
+                    >
+                      <ProductCard
+                        product={product}
+                        isLoading={loading}
+                        offerProducts={offerProducts}
+                        relatedProducts={relatedProducts}
+                        newProducts={newProducts}
+                      />
+                    </Grid>
+                  ))
+                ) : (
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      mt: 3,
+                      width: "100%",
+                      textAlign: "center",
+                      color: theme.palette.basecolorCode.main,
+                    }}
+                  >
+                    No products available.
+                  </Typography>
+                )}
+              </Grid>
 
             </Grid>
           </Grid>

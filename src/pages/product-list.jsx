@@ -4,13 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Container, Select, MenuItem, FormControl, Drawer, List, ListItem, ListItemText, Grid, Typography, Avatar, CircularProgress, Backdrop } from '@mui/material';
 import ProductCard from '../components/ProductCard';
-import { API_FetchOfferFastMovingProduct, API_FetchNewProduct,fetchSelectProduct, API_FetchProductByIndexPage,API_FetchProductIdMoreItems, API_FetchProductByCategory, API_FetchProductBySubCategory, API_FetchBrand } from '../services/productListServices';
+import { API_FetchOfferFastMovingProduct, API_FetchNewProduct,fetchSelectProduct,fetchKidslist, API_FetchProductByIndexPage,API_FetchProductIdMoreItems, API_FetchProductByCategory, API_FetchProductBySubCategory, API_FetchBrand,fetchtopproductlist } from '../services/productListServices';
 import { API_FetchCategorySubCategory } from '../services/categoryServices';
 import { ImagePathRoutes } from '../routes/ImagePathRoutes';
 import { positions, styled } from '@mui/system';
 import { useTheme } from '@mui/material/styles';
 import AllCategory from '../assets/alc.jpg';
 import CreackersEffect from '../components/CreackersEffect';
+import  FloatingOffer from '../components/FloatingOffer';
 //import PlayStrore from '../../D:\KarthikWorkSpace\ReactProject\treeandleef\ecommercev7_frontend-main\src\assets\alc.jpg';
 
 const drawerWidth = 240;
@@ -46,6 +47,8 @@ const ProductList = () => {
   const [categoryId, setCategoryId] = useState(null);
   const [categoryName, setCategoryName] = useState(null);
   const [offerProducts, setOfferProducts] = useState(null);
+  const [kidsProducts, setKidsProducts] = useState(null);
+  const [BudgetProducts, setBudgetProducts] = useState(null);
   const [newProducts, setNewProducts] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState(null);
   const [subCategoryId, setSubCategoryId] = useState(null);
@@ -114,15 +117,38 @@ const ProductList = () => {
       setBackdropOpen(true);
       setProductLists([]);
       let productLists = [];
-      if (categoryId === "offer_product") {
+   
+      if (categoryId === "kids_product") {
         setRelatedProducts(null);
         setNewProducts(null);
+        setKidsProducts(null);
+        setBudgetProducts(null);
         setOfferProducts(categoryId);
-        setActiveCategory("Offer products for you");
-        productLists = await API_FetchOfferFastMovingProduct();
+        setActiveCategory("Kids Collection");
+        productLists = await fetchKidslist();
+      }
+      else if (categoryId === "Top_product") {
+        setRelatedProducts(null);
+        setNewProducts(null);
+        setOfferProducts(null);
+        setBudgetProducts(null);
+        setKidsProducts(categoryId)
+        setActiveCategory("Nightcollection Collection");
+        productLists = await fetchtopproductlist();
+      }
+
+      else if (categoryId === "Budget_blast") {
+        setRelatedProducts(null);
+        setNewProducts(null);
+        setOfferProducts(null);
+        setKidsProducts(null);
+        setBudgetProducts(categoryId);
+        setActiveCategory("Budget Blast");
+        productLists = await API_FetchNewProduct();
       }
       else if (categoryId === "new_product") {
         setOfferProducts(null);
+        setKidsProducts(null);
         setRelatedProducts(null);
         setNewProducts(categoryId);
         setActiveCategory("ALL products");
@@ -130,6 +156,8 @@ const ProductList = () => {
       }
       else if (categoryId === "related_product") {
         setOfferProducts(null);
+        setKidsProducts(null);
+        setBudgetProducts(null);
         setNewProducts(null);
         setRelatedProducts(atob(categoryName));
         setActiveCategory("You might also like products");
@@ -137,6 +165,8 @@ const ProductList = () => {
       }
       else {
         setOfferProducts(null);
+        setKidsProducts(null);
+        setBudgetProducts(null);
         setRelatedProducts(null);
         setNewProducts(null);
         productLists = await API_FetchProductByCategory(categoryId, Multipleitems, Startindex, PageCount);
@@ -248,95 +278,6 @@ const ProductList = () => {
   }, [location.search]);
 
 
-
-
-  // useEffect(() => {
-  //   const queryParams = new URLSearchParams(location.search);
-  //   const encodedId = queryParams.get('pcid');
-  //   const encodedName = queryParams.get('pcname');
-  //   const encodedSId = queryParams.get('pscid');
-  //   const encodedSName = queryParams.get('pscname');
-
-  //   const decodedId = encodedId ? decodeURIComponent(encodedId) : null;
-  //   const decodedName = encodedName ? decodeURIComponent(encodedName) : null;
-  //   const decodedSId = encodedSId ? decodeURIComponent(encodedSId) : null;
-  //   const decodedSName = encodedSName ? decodeURIComponent(encodedSName) : null;
-
-  //   setCategoryId(decodedId);
-  //   setCategoryName(decodedName);
-  //   setSubCategoryId(decodedSId);
-  //   setSubCategoryName(decodedSName);
-
-  //   if(atob(encodedId) !== 'new_product'){
-  //     GetCategoryBySubCategory(atob(encodedId));
-  //   }    
-
-
-
-
-  //   if (encodedSId === null) {
-  //     setActiveCategory("All Products");
-  //     GetProductLists(atob(encodedId), Multipleitems, Startindex, PageCount);
-  //   }
-  //   if (encodedSName === 'All%20Products') {
-  //     setActiveCategory("All Products");
-  //     GetProductLists(atob(encodedId), Multipleitems, Startindex, PageCount);
-  //   }
-
-  //   if (decodedSId) {
-  //     setActiveCategory(decodedSName); // Set active category to pscname (e.g., "SUGAR")
-  //     GetProductListsBySubCategory(atob(encodedSId), Multipleitems, Startindex, PageCount);
-  //   } else {
-  //     setActiveCategory("All Products");
-  //     GetProductLists(atob(encodedId), Multipleitems, Startindex, PageCount);
-  //   }
-
-
-  //   //eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [location.search, categoryId, categoryName, Multipleitems, Startindex, PageCount]);
-
-
-
-  /// complete my ise effect 
-
-
-  // useEffect(() => {
-  //   const queryParams = new URLSearchParams(location.search);
-  //   const encodedId = queryParams.get('pcid');
-  //   const encodedName = queryParams.get('pcname');
-  //   const encodedSId = queryParams.get('pscid');
-  //   const encodedSName = queryParams.get('pscname');
-
-  //   const decodedId = encodedId ? decodeURIComponent(encodedId) : null;
-  //   const decodedName = encodedName ? decodeURIComponent(encodedName) : null;
-  //   const decodedSId = encodedSId ? decodeURIComponent(encodedSId) : null;
-  //   const decodedSName = encodedSName ? decodeURIComponent(encodedSName) : null;
-
-  //   setCategoryId(decodedId);
-  //   setCategoryName(decodedName);
-  //   setSubCategoryId(decodedSId);
-  //   setSubCategoryName(decodedSName);
-
-  //   if (atob(encodedId) !== 'new_product') {
-  //     GetCategoryBySubCategory(atob(encodedId));
-  //   }
-
-  //   // ✅ Correctly setting active category
-  //   if (decodedSId) {
-  //     setActiveCategory(decodedSName); // Set active category to pscname (e.g., "SUGAR")
-  //     GetProductListsBySubCategory(atob(encodedSId), Multipleitems, Startindex, PageCount);
-  //   } else {
-  //     setActiveCategory("All Products");
-  //     GetProductLists(atob(encodedId), Multipleitems, Startindex, PageCount);
-  //   }
-
-  // // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [location.search, categoryId, categoryName, Multipleitems, Startindex, PageCount]);
-
-
-
-
-
   // Function to filter products based on the selected option
   const handleProductFilterChange = (event) => {
     const filterName = event.target.value;
@@ -394,7 +335,7 @@ const ProductList = () => {
       <Container maxWidth="xl" sx={{ px: { xs: 0, md: 3 } ,mt: {xs:0 ,md: 7} }}>
         <Grid container>
           {/* Left-side Drawer for larger screens */}
-          {(offerProducts === null && relatedProducts === null && newProducts === null) && (
+          {(offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && BudgetProducts === null) && (
             <Grid item xs={12} md={2} sx={{ display: { xs: 'none', md: 'block' } }} style={{ position: 'sticky',  height: '100vh' }}>
               <Drawer
                 variant="permanent"
@@ -464,8 +405,8 @@ const ProductList = () => {
           {/* Mobile Drawer Toggle Button */}
        
 
-          {(offerProducts === null && relatedProducts === null && newProducts === null) && (
-            <Grid item xs={2} md={2} sx={{ display: { xs: 'flex', md: 'none' }, position: '', top: 0 }}>
+          {(offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && BudgetProducts === null) && (
+            <Grid item xs={2} md={2} sx={{ display: { xs: 'flex', md: 'none' }, position: 'sticky', top: 0 }}>
               <Drawer
                 variant="permanent"
                 sx={{
@@ -475,12 +416,19 @@ const ProductList = () => {
                   '& .MuiDrawer-paper': {
                     width: '80px',
                     boxSizing: 'border-box',
-                    height: '100%', // Adjust height to avoid white space
+                    height: 'calc(100vh - 120px)', // Proper height calculation to avoid footer overlap
+                    maxHeight: 'calc(100vh - 120px)',
                     display: 'flex',
                     flexDirection: 'column',
                     overflowY: 'auto', 
-                    position: "fixed",
-                    top: isScrolled ? 100 : 250,
+                    overflowX: 'hidden',
+                    position: "sticky",
+                    top: isScrolled ? '80px' : '100px', // Reduced top positioning
+                    zIndex: 10, // Ensure proper layering
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)', // Semi-transparent background
+                    backdropFilter: 'blur(8px)', // Add blur effect
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                    borderRadius: '0 8px 8px 0', // Rounded right corners
                    
                   },
                 }}
@@ -515,8 +463,8 @@ const ProductList = () => {
 
 
           {/* Right-side Content Area */}
-          <Grid item xs={12} md={offerProducts === null && relatedProducts === null && newProducts === null ? 10 : 12} sx={{ p: 3 }}>
-            <Grid container sx={{ px: { xs: 0, md: 0 }, justifyContent: "flex-start", gap: "0px 18px" }}>
+          <Grid item xs={offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && BudgetProducts === null ? 10 : 12} md={offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && BudgetProducts === null ? 10 : 12} sx={{ p: { xs: 1, md: 3 } }}>
+            <Grid container sx={{ px: { xs: 1, md: 0 }, justifyContent: "flex-start", gap: "0px 18px" }}>
               {/* update by for brand search start  */}
               {/* update by   for brand search end  */}
 
@@ -527,7 +475,9 @@ const ProductList = () => {
                   flexDirection: { xs: "column", md: "row" },
                   justifyContent: "space-between",
                   position: "relative",
-                  left: { xs: 80, md: 0 },
+                  left: { xs: 0, md: 0 }, // Remove left positioning for mobile
+                  paddingLeft: { xs: 2, md: 0 }, // Add proper padding instead
+                  paddingRight: { xs: 2, md: 0 },
                   alignItems: "center",
                 }}
               >
@@ -559,7 +509,7 @@ const ProductList = () => {
                   }}
                 >
                   {/* Brand Filter */}
-                  {activeCategory !== "All Products" && (
+              
                     <Box
                       sx={{
                         minWidth: { xs: "100%", md: 250 },
@@ -587,7 +537,6 @@ const ProductList = () => {
                           </Select>
                         </FormControl>
                     </Box>
-                  )}
                   {/* Product Filter */}
                   <Box
                     sx={{
@@ -626,11 +575,12 @@ const ProductList = () => {
       </Box>
      ) : productLists.length > 0 ? (
     productLists.map((product) => (
-      <Grid item xs={12} md={3} key={product.id} sx={{  position:{xs:"relative"},left:{xs:50}}}> {/* Each card takes half the row */}
+      <Grid item xs={6} sm={4} md={3} key={product.id} sx={{ px: { xs: 0.5, md: 0 } }}> {/* Each card takes half the row */}
         <ProductCard
           product={product}
           isLoading={loading}
           offerProducts={offerProducts}
+          kidsProducts ={kidsProducts}
           relatedProducts={relatedProducts}
           newProducts={newProducts}
         />
@@ -656,6 +606,7 @@ const ProductList = () => {
         </Grid>
       </Container>
       <CreackersEffect/>
+       <FloatingOffer/>
     </>
 
   );
