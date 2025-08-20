@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { motion } from 'framer-motion';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
-const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, relatedProducts, newProducts }) => {
+const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, relatedProducts,kidsProducts, newProducts }) => {
   const navigate = useNavigate();
   const theme = useTheme();
   const { cartItems, setCartItems } = useCart();
@@ -248,12 +248,18 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
       value={product?.Productid ? product.Productid : product?.Id}
       sx={{
         width: {
-          xs: offerProducts === null && relatedProducts === null && newProducts === null ? 155 : 175,
-          sm: 220,
-          md: 260,
+          xs: '100%',
+          sm: 200,
+          md: 240,
           lg: 260
         },
-        height: { xs: 320, sm: 380, md: 400, lg: 420 },
+        maxWidth: {
+          xs: 180,
+          sm: 220,
+          md: 360,
+          lg: 380
+        },
+        height: { xs: 400, sm: 360, md: 480, lg: 500 },
         margin: '0 auto',
         textAlign: 'left',
         background: 'rgba(255, 255, 255, 0.25)', // Glassmorphism base
@@ -306,7 +312,7 @@ const ProductCard = ({ get_fav_lists, product, isLoading, offerProducts, related
           </Box>
         ))
       ) : (
-        <Box sx={{ position: 'relative', height: { xs: '50%', sm: '55%', md: '60%' } }}>
+        <Box sx={{ position: 'relative', height: { xs: '50%', sm: '55%', md: '70%' } }}>
           <CardMedia
             id={product?.Productid ? product.Productid : product?.Id}
             name={product.Description}

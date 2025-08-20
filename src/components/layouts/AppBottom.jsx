@@ -78,7 +78,7 @@ export default function AppBottomNavigation() {
   return (
     <>
       <AppCart CartDrawerOpen={cartDrawerOpen} handleAuthDrawerToggle={handleAuthDrawerToggle} />
-      <AppLogin LoginDrawerOpen={loginDrawerOpen} handleAuthDrawerToggle={handleAuthDrawerToggle} />
+      
       <Box sx={{ pb: 7 }} ref={ref}>
         <CssBaseline />
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
@@ -102,8 +102,8 @@ export default function AppBottomNavigation() {
               </Badge>
             </IconButton>
             } />
-            {isAuthenticated ? <BottomNavigationAction label="Account" icon={<ManageAccountsIcon />} /> : null}
-            {!isAuthenticated ? <BottomNavigationAction label="Login" icon={<ManageAccountsIcon />} /> : null}
+         
+         
           </BottomNavigation>
         </Paper>
       </Box>

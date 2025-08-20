@@ -162,10 +162,11 @@ export default function AppHeader() {
               item
               xs={12} sm={6} md={5}
               sx={{
-                display: { sm: 'inline-block' },
+                display: { xs: 'block', sm: 'inline-block' },
                 alignItems: 'center',
                 mt: { xs: 1, sm: 0 },
-                position: 'relative', // Remove fixed positioning for mobile
+                px: { xs: 1, sm: 0 },
+                position: 'relative',
                 width: '100%',
                 zIndex: 9,
               }}
