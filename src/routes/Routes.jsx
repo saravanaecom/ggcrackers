@@ -22,6 +22,13 @@ import { CssBaseline } from '@mui/material';
 import ThemeSettings from '../theme/theme';
 import {ServerURL} from '../server/serverUrl';
 import SafetyTips from '../pages/safetytips';
+import StaticMainPage from '../pages/statcic-page';
+import Staticaboutpage from '../components/About2';
+import Staticbrandspage from '../components/Brandsstaticpage';
+import Staticsafetytipspage from '../components/SafeTipsstatic';
+import Staticfooterpage from '../components/Footerstaticpage';
+import Staticheaderpage from '../components/Headerstaticpage';
+import Staticheropage from '../components/Herostaticpage';
 
 
 function AppRouter() {
@@ -86,6 +93,14 @@ function AppRouter() {
                                     <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
                                     <Route path="/refund-and-cancellation" element={<RefundAndCancellation />} />
                                     <Route path="/safetytips" element={<SafetyTips />} />
+
+                                   <Route path="/mainpage" element={<StaticMainPage />} />
+                                    <Route path="/static-about" element={<Staticaboutpage />} />
+                                    <Route path="/static-brands" element={<Staticbrandspage />} />
+                                    <Route path="/static-safetytips" element={<Staticsafetytipspage />} />
+                                    <Route path="/static-hero" element={<Staticheropage />} />
+                                    <Route path="/static-header" element={<Staticheaderpage />} />
+                                    <Route path="/static-footer" element={<Staticfooterpage />} />
                                     {/* Catch-all Route for 404 */}
                                     <Route path="*" element={<Navigate to="/" replace />} />
                                 </Routes>

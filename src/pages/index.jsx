@@ -13,6 +13,7 @@ import { Box } from "@mui/material";
 import CreackersEffect from '../components/CreackersEffect';
 import CrackerShowcaseCards from '../components/CrackerShowcaseCards';
 import FloatingOffer from '../components/FloatingOffer';
+import LegalNoticePopup from '../components/LegalNoticePopup ';
 export default function HomePage() {
     return (
         <>
@@ -45,6 +46,7 @@ export default function HomePage() {
                 <HeroSection />
                 <CreackersEffect/>
                 <FloatingOffer/>
+                <LegalNoticePopup /> 
         </>
     )
 };

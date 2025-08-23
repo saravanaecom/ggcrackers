@@ -135,6 +135,8 @@ const ProductList = () => {
         setKidsProducts(categoryId)
         setActiveCategory("Nightcollection Collection");
         productLists = await fetchtopproductlist();
+      
+
       }
 
       else if (categoryId === "Budget_blast") {
@@ -153,6 +155,12 @@ const ProductList = () => {
         setNewProducts(categoryId);
         setActiveCategory("ALL products");
         productLists = await fetchSelectProduct();
+        console.log("Top_product", JSON.stringify(productLists));
+
+             const uniqueBrands = Array.from(
+          new Set(productLists.map(product => product.Brandname).filter(Boolean))
+        );
+        setBrands(uniqueBrands);
       }
       else if (categoryId === "related_product") {
         setOfferProducts(null);
@@ -271,7 +279,7 @@ const ProductList = () => {
       setActiveCategory(decodedSName);
       GetProductListsBySubCategory(atob(encodedSId), Multipleitems, Startindex, PageCount);
     } else {
-      setActiveCategory("All Products");
+      setActiveCategory("new_product");
       GetProductLists(productId, Multipleitems, Startindex, PageCount);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

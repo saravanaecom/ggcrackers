@@ -580,16 +580,7 @@ const ProductDetails = (props) => {
                                     Our Choice
                                 </div>
                             )}
-
-
-
-
                         </Box>
-
-
-
-
-
                         <Box sx={{ pb: { xs: 2, md: 4 }, pt: { xs: 3, md: 6.5 } }}>
                             {/* Title */}
                             <Typography sx={{ fontSize: { xs: 16, md: 18 }, fontWeight: 600, textAlign: "left", pb: 1 }}>
