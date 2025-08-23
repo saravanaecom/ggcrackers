@@ -208,7 +208,7 @@ export default function AppHeader() {
                 </Typography>
 
               </Button>
-              <Button sx={{ color: '#333', fontWeight: 600, fontFamily: 'inherit', textTransform: 'none', display: { xs: 'none', md: 'none' } }}><Link to={"/"}>Home</Link></Button>
+              <Button sx={{ color: '#333', fontWeight: 600, fontFamily: 'inherit', textTransform: 'none'}}><Link to={"/mainpage"}>Home</Link></Button>
               {/* {!isAuthenticated && (
                 <>
                   <Button

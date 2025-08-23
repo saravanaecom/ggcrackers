@@ -1,96 +1,81 @@
-import React from "react";
-import { Box, Typography } from "@mui/material";
-import { styled, keyframes } from "@mui/material/styles";
-import { useNavigate } from "react-router-dom";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import React from 'react';
+import { Box, Typography } from '@mui/material';
+import { styled, keyframes } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 
-// Animations
-const rotateRing = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+// Blast animation
+const blast = keyframes`
+  0% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.3) rotate(90deg); }
+  50% { transform: scale(0.8) rotate(180deg); }
+  75% { transform: scale(1.2) rotate(270deg); }
+  100% { transform: scale(1) rotate(360deg); }
 `;
 
-const pulse = keyframes`
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
+const sparkle = keyframes`
+  0%, 100% { opacity: 0.5; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
 `;
 
-// Outer rotating glow ring
-const GlowRing = styled(Box)(() => ({
-  position: "absolute",
-  width: "115px",
-  height: "115px",
-  borderRadius: "50%",
-  background:
-    "conic-gradient(from 0deg, #ff0000, #ff4d4d, #cc0000, #ff1a1a, #ff0000)",
-  animation: `${rotateRing} 10s linear infinite`,
-  filter: "blur(6px)",
-  zIndex: 0,
-}));
-
-// Main floating button
-const FloatingOfferButton = styled(Box)(() => ({
-  position: "fixed",
-  bottom: "25px",
-  right: "25px",
-  width: "95px",
-  height: "95px",
-  borderRadius: "50%",
-  backdropFilter: "blur(10px)",
-  background: "linear-gradient(135deg, rgba(255,0,0,0.85), rgba(200,0,0,0.9))",
-  border: "3px solid #fff",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  cursor: "pointer",
+const FloatingOfferButton = styled(Box)({
+  position: 'fixed',
+  bottom: '20px',
+  right: '20px',
+  width: '80px',
+  height: '80px',
+  backgroundColor: '#ff4444',
+  borderRadius: '50%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  cursor: 'pointer',
   zIndex: 1000,
-  animation: `${pulse} 3s infinite`,
-  overflow: "hidden",
-  boxShadow: "0 6px 30px rgba(255,0,0,0.6)",
-  transition: "all 0.3s ease",
-  "&:hover": {
-    transform: "scale(1.15)",
-    boxShadow: "0 8px 45px rgba(255,0,0,0.9)",
-    border: "3px solid #fff",
+  boxShadow: '0 4px 20px rgba(255, 68, 68, 0.4)',
+  animation: `${blast} 2s infinite`,
+  '&:hover': {
+    backgroundColor: '#ff2222',
+    animation: `${blast} 0.5s infinite`,
   },
-}));
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    borderRadius: '50%',
+    background: 'radial-gradient(circle, rgba(255,255,0,0.3), transparent)',
+    animation: `${sparkle} 1s infinite`,
+  },
+});
 
-// Icon style
-const OfferIcon = styled(LocalOfferIcon)(() => ({
-  fontSize: "38px",
-  color: "#fff",
-  marginBottom: "5px",
-}));
+const BoomIcon = styled(Typography)({
+  fontSize: '24px',
+  fontWeight: 'bold',
+  color: '#fff',
+  textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+  marginBottom: '2px',
+});
 
-// Text style
-const OfferText = styled(Typography)(() => ({
-  fontSize: "14px",
-  fontWeight: "bold",
-  textTransform: "uppercase",
-  letterSpacing: "1px",
-  color: "#fff",
-  textShadow: "0px 1px 3px rgba(0,0,0,0.6)",
-}));
+const OfferText = styled(Typography)({
+  color: '#fff',
+  fontSize: '10px',
+  fontWeight: 'bold',
+  textAlign: 'center',
+  lineHeight: 1,
+});
 
-// Component
 const FloatingOffer = () => {
   const navigate = useNavigate();
 
   const handleOfferClick = () => {
-    navigate(
-      `/product-list?pcid=${btoa("Budget_blast")}&pcname=${btoa("Special Offers")}`
-    );
+    navigate(`/product-list?pcid=${btoa('offer_product')}&pcname=${btoa('Special Offers')}`);
   };
 
   return (
-    <Box sx={{ position: "relative" }}>
-      <GlowRing />
-      <FloatingOfferButton onClick={handleOfferClick}>
-        <OfferIcon />
-        <OfferText>Budget Blast</OfferText>
-      </FloatingOfferButton>
-    </Box>
+    <FloatingOfferButton onClick={handleOfferClick}>
+      <BoomIcon>💥</BoomIcon>
+      <OfferText>Budject Blast</OfferText>
+    </FloatingOfferButton>
   );
 };
 
