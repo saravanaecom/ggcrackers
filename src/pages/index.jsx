@@ -1,3 +1,4 @@
+import React, { lazy, Suspense } from 'react';
 import BannerSlider from "../components/slider/BannerSlider";
 import ImageCategorySlider from "../components/slider/ImageCategorySlider";
 import OfferFastMovingProduct from "../components/slider/offerFastMovingProduct";
@@ -10,10 +11,11 @@ import BrandSlider from "../components/Home/BrandSlider";
 import AboutUsSection from "../components/Home/AboutUsSection";
 import slideparallax from '../assets/slideparallax.jpg';
 import { Box } from "@mui/material";
-import CreackersEffect from '../components/CreackersEffect';
 import CrackerShowcaseCards from '../components/CrackerShowcaseCards';
 import FloatingOffer from '../components/FloatingOffer';
 import LegalNoticePopup from '../components/LegalNoticePopup ';
+
+const CreackersEffect = lazy(() => import('../components/CreackersEffect'));
 export default function HomePage() {
     return (
         <>
@@ -22,10 +24,10 @@ export default function HomePage() {
             </Container>
             <BannerSlider />
                 {/* <OfferFastMovingProduct/>            
-                <ImageCategorySlider />
-                <ProductByIndexPage/>                 */}
+                <ImageCategorySlider />*/}
+                {/* <ProductByIndexPage/>                  */}
                 <AboutUsSection/>
-              <  CrackerShowcaseCards/>
+              {/* <  CrackerShowcaseCards/> */}
                 <ProductCategories/>
 
                 <ImageCategorySlider />
@@ -33,6 +35,7 @@ export default function HomePage() {
                     <img 
                         src={slideparallax} 
                         alt="slideparallax"
+                        loading="lazy"
                         style={{
                             width: '100%',
                             height: 'auto',
@@ -44,7 +47,9 @@ export default function HomePage() {
                 <OfferFastMovingProduct/>
                 <BrandSlider />
                 <HeroSection />
-                <CreackersEffect/>
+                <Suspense fallback={null}>
+                    <CreackersEffect/>
+                </Suspense>
                 <FloatingOffer/>
                 <LegalNoticePopup /> 
         </>

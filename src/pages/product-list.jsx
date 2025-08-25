@@ -279,7 +279,7 @@ const ProductList = () => {
       setActiveCategory(decodedSName);
       GetProductListsBySubCategory(atob(encodedSId), Multipleitems, Startindex, PageCount);
     } else {
-      setActiveCategory("new_product");
+      setActiveCategory("All Products");
       GetProductLists(productId, Multipleitems, Startindex, PageCount);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
