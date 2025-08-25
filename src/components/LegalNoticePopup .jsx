@@ -92,7 +92,7 @@ const LegalNoticePopup = () => {
           <TextContent>
             <Title>Legal Notice - Supreme Court Order 2018</Title>
             <Message>
-              As per 2018 supreme court order, online sale of firecrackers are not permitted! We value our customers and respect jurisdiction. Please add products to cart and submit through enquiry button. We'll contact you within 24 hrs via WhatsApp/phone. License No. E/SS/TN/24/394(E132626). Bijili follows 100% legal compliance and uses registered transport services.
+              As per 2018 supreme court order, online sale of firecrackers are not permitted! We value our customers and respect jurisdiction. Please add products to cart and submit through enquiry button. We'll contact you within 24 hrs via WhatsApp/phone. GG Crackers follows 100% legal compliance and uses registered transport services.
             </Message>
             <OkButton onClick={handleOk}>
               OK
