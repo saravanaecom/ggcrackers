@@ -115,7 +115,7 @@ const Footer = () => {
               </a>
 
               <a 
-                href="https://wa.me/919876543210" 
+                href="https://wa.me/918870012810" 
                 className="social-link whatsapp"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -128,10 +128,8 @@ const Footer = () => {
           
             </div>
           </div>
-
-        
+   
         </div>
-
         <div className="footer-bottom">
           <div className="footer-bottom-content">
             <div className="copyright">

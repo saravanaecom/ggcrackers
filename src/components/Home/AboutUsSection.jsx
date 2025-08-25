@@ -114,7 +114,7 @@ const AboutUsSection = () => {
             <Grid container spacing={4}>
               <Grid item>
                 <Typography variant="h3" sx={{ color: "#ff6b35", fontWeight: 900, textShadow: '0 2px 8px #ffd6e0' }}>
-                  300+
+                  3K+
                 </Typography>
                 <Typography variant="subtitle1" sx={{ color: "#f4a300", fontWeight: 700, fontSize: 18 }}>
                   Products
@@ -123,12 +123,23 @@ const AboutUsSection = () => {
 
               <Grid item>
                 <Typography variant="h3" sx={{ color: "#ff6b35", fontWeight: 900, textShadow: '0 2px 8px #ffd6e0' }}>
-                  1000+
+                  200+
                 </Typography>
                 <Typography variant="subtitle1" sx={{ color: "#f4a300", fontWeight: 700, fontSize: 18 }}>
-                  Happy Customers
+               Brands
+                </Typography>
+                
+              </Grid>
+
+              <Grid item>
+                <Typography variant="h3" sx={{ color: "#ff6b35", fontWeight: 900, textShadow: '0 2px 8px #ffd6e0' }}>
+                  40+
+                </Typography>
+                <Typography variant="subtitle1" sx={{ color: "#f4a300", fontWeight: 700, fontSize: 18 }}>
+                  Years Experience
                 </Typography>
               </Grid>
+
             </Grid>
           </motion.div>
         </Grid>
