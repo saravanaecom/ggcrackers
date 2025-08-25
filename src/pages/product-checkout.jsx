@@ -115,7 +115,7 @@ export default function ProductCheckout() {
                 setTotalPrice((prevPrice) => prevPrice - walletAmount);
             }
     
-            // 🏷️ Apply Coupon Discount
+            // 🏷️ Apply Coupon DiscountF
             let DiscountData = localStorage.getItem("DiscountData");
             if (DiscountData) {
                 try {
@@ -300,7 +300,7 @@ export default function ProductCheckout() {
                 Id: 0,
                 CustomerRefId: 1,
                 CutomerName: "nun",
-                MobileNo:"8825537674",
+                MobileNo: selectedAddress.MobileNumber,
                 Email: "karthick123svks@gmail.com",
                 Address1: selectedAddress.Address1,
                 Address2: selectedAddress.Address2,
