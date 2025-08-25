@@ -83,12 +83,12 @@ const AppLayout = (props) => {
         <TopCategory />
       </Container>
       {children}
-      <Box sx={{ borderTop: '1px solid lightgray', borderBottom: '1px solid lightgray', display: 'none' }}>
+      {/* <Box sx={{ borderTop: '1px solid lightgray', borderBottom: '1px solid lightgray', display: 'none' }}>
         <Container maxWidth="xl" sx={{ py: 3 }}>
           <FooterCategories />
         </Container>
       </Box>
-      <AppFooter CompanyDetails={CompanyDetails} />
+      <AppFooter CompanyDetails={CompanyDetails} /> */}
       {/* <BlinkingSaleImage/> */}
       {/* <FloatingContactImage/> */}
     </>

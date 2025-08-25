@@ -50,12 +50,17 @@ const Header = () => {
           style={{ cursor: 'pointer' }}
         >
           <div className="logo-animation">
-            <div className="logo-placeholder">GG</div>
+            <img 
+              src={require('../assets/GG Crackers Logo Final-01.jpg')} 
+              alt="GG Crackers Logo" 
+              className="logo-img"
+              style={{ width: 60, height: 60, borderRadius: '50%', objectFit: 'cover', boxShadow: '0 0 20px #ff6b35' }}
+            />
             <div className="logo-spark">✨</div>
           </div>
           <div className="brand-text">
             <h1 className="brand-name">GG CRACKERS</h1>
-            <p className="brand-tagline">Premium Fireworks & Celebrations</p>
+            <p className="brand-tagline">Fantacy World Every Fire</p>
           </div>
         </div>
 
@@ -71,7 +76,10 @@ const Header = () => {
         </nav>
 
         <div className="header-actions">
-          <button className="cta-button order-btn">
+          <button 
+            className="cta-button order-btn"
+            onClick={() => handleNavigation('/')}
+          >
             <span className="btn-text">Order Now</span>
             <span className="btn-icon">🛒</span>
             <div className="btn-glow"></div>

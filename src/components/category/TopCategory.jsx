@@ -17,6 +17,7 @@ import TopOffers from '../../assets/top-offers.png';
 import NewProducts from '../../assets/new-products.png';
 
 const TopCategory = (props) => {
+  // Use category ID for tab value
   const [categoryValue, setCategoryValue] = useState(null);
   const [categoryLists, setCategoryLists] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,16 +27,19 @@ const TopCategory = (props) => {
   const [isActiveCategory, setIsActiveCategory] = React.useState(false);
 
   const handleCategoryClickChange = (event, newValue) => {
-    const selectedCategoryId = event.currentTarget.id;
     setCategoryValue(newValue);
-    navigate(`/product-list?pcid=${btoa(selectedCategoryId)}&pcname=${btoa(newValue)}`);
+    // Find the category name for the selected ID
+    const selectedCategory = categoryLists.find(cat => cat.Id === newValue);
+    const categoryName = selectedCategory ? selectedCategory.Category : 'All Products';
+    navigate(`/product-list?pcid=${btoa(newValue)}&pcname=${btoa(categoryName)}`);
   };
 
   function handleViewBtnClick(id, value) {
     if (id !== 'all_categories') {
+      setCategoryValue(id);
       navigate(`/product-list?pcid=${btoa(id)}&pcname=${btoa(value)}`);
-    }
-    else {
+    } else {
+      setCategoryValue(id);
       navigate(`/categories?cid=${btoa(id)}&cname=${btoa(value)}`);
     }
   };
@@ -75,8 +79,7 @@ const TopCategory = (props) => {
     const pcname = params.get('pcname');
     if (pcid && pcname) {
       const decodedPcid = atob(pcid);
-      const decodedPcname = atob(pcname);
-      setCategoryValue(decodedPcname);
+      setCategoryValue(decodedPcid);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.get_catgory_lists]);
@@ -202,7 +205,7 @@ const TopCategory = (props) => {
                   }}
                   key={index}
                   id={item.Id}
-                  value={item.Category}
+                  value={item.Id}
                   onClick={(event) => handleCategoryClickChange(event, item.Id)}
                   label={
                     <Box id={item.Id} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

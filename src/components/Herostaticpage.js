@@ -134,16 +134,16 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="hero-actions">
-            <button className="cta-primary">
+          {/* <div className="hero-actions">
+            <button className="cta-primary" onClick={() => window.location.href = '/'}>
               <span>Explore Products</span>
               <div className="button-explosion">💥</div>
             </button>
-            <button className="cta-secondary">
+            <button className="cta-secondary" onClick={() => window.open('https://www.youtube.com/@ggcrackersfantasyworld', '_blank')}>
               <span>Watch Safety Video</span>
               <span>🎥</span>
             </button>
-          </div>
+          </div> */}
         </div>
 
         <div className="hero-visual-section">
@@ -182,7 +182,7 @@ const Hero = () => {
 
           <div className="statistics">
             <div className="stat-item">
-              <span className="stat-number">10K+</span>
+              <span className="stat-number">3K+</span>
               <span className="stat-label">Products</span>
             </div>
             <div className="stat-item">

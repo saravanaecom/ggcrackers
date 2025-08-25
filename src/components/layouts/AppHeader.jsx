@@ -103,7 +103,7 @@ export default function AppHeader() {
 
 
   const handleClick = () => {
-    window.open("https://www.youtube.com/@YourChannelName", "_blank"); // replace with your YouTube link
+    window.open("https://www.youtube.com/@ggcrackersfantasyworld", "_blank"); // replace with your YouTube link
   };
 
   // Handle scroll event to animate header

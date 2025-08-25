@@ -17,7 +17,10 @@ const CrackersEffect = () => {
     canvas.width = width;
     canvas.height = height;
 
-    let fireworks = [];
+  let fireworks = [];
+  let lastFrameTime = 0;
+  const MAX_FIREWORKS = 4;
+  const MAX_PARTICLES = 40;
 
     function createRocket() {
       const side = Math.floor(Math.random() * 3); // bottom, left, right
@@ -52,27 +55,25 @@ const CrackersEffect = () => {
 
     function createParticles(x, y, color, type = 'flowerpot') {
       const particles = [];
-      let count = 60;
-      let speedRange = [2, 6];
-
+      let count = MAX_PARTICLES;
+      let speedRange = [2, 5];
       switch (type) {
         case 'ring':
-          count = 50;
-          speedRange = [4, 4.5];
+          count = Math.floor(MAX_PARTICLES * 0.8);
+          speedRange = [3, 4];
           break;
         case 'chrysanthemum':
-          count = 80;
-          speedRange = [3, 7];
+          count = Math.floor(MAX_PARTICLES * 1.2);
+          speedRange = [2, 6];
           break;
         case 'random':
-          count = 40;
-          speedRange = [2, 8];
+          count = Math.floor(MAX_PARTICLES * 0.7);
+          speedRange = [2, 7];
           break;
         default:
-          count = 60;
+          count = MAX_PARTICLES;
           speedRange = [2, 5];
       }
-
       for (let i = 0; i < count; i++) {
         const angle = (Math.PI * 2 * i) / count;
         const speed = randomBetween(...speedRange);
@@ -88,8 +89,13 @@ const CrackersEffect = () => {
       return particles;
     }
 
-    function animate() {
-      // Removed background fill so canvas is transparent
+    function animate(now) {
+      // Cap to 60 FPS
+      if (now && lastFrameTime && now - lastFrameTime < 16) {
+        requestAnimationFrame(animate);
+        return;
+      }
+      lastFrameTime = now || performance.now();
       ctx.clearRect(0, 0, width, height);
 
       fireworks.forEach((fw) => {
@@ -111,7 +117,7 @@ const CrackersEffect = () => {
           ctx.beginPath();
           ctx.arc(fw.x, fw.y, 4, 0, Math.PI * 2);
           ctx.fillStyle = fw.color;
-          ctx.shadowBlur = 20;
+          ctx.shadowBlur = 8; // Lowered for performance
           ctx.shadowColor = fw.color;
           ctx.fill();
           ctx.shadowBlur = 0;
@@ -132,7 +138,7 @@ const CrackersEffect = () => {
             ctx.beginPath();
             ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
             ctx.fillStyle = p.color;
-            ctx.shadowBlur = 15;
+            ctx.shadowBlur = 5; // Lowered for performance
             ctx.shadowColor = p.color;
             ctx.fill();
             ctx.shadowBlur = 0;
@@ -140,16 +146,16 @@ const CrackersEffect = () => {
             p.x += p.vx;
             p.y += p.vy;
             p.vy += 0.05;
-            p.alpha -= 0.015;
+            p.alpha -= 0.02;
           });
           ctx.globalAlpha = 1;
-          fw.particles = fw.particles.filter((p) => p.alpha > 0);
+          fw.particles = fw.particles.filter((p) => p.alpha > 0.05);
         }
       });
 
       fireworks = fireworks.filter((fw) => !fw.exploded || fw.particles.length > 0);
 
-      if (fireworks.length < 6 && Math.random() < 0.05) {
+      if (fireworks.length < MAX_FIREWORKS && Math.random() < 0.04) {
         fireworks.push(createRocket());
       }
 

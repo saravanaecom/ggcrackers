@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, Button, Paper, Slide } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import GavelIcon from '@mui/icons-material/Gavel';
@@ -65,11 +65,21 @@ const OkButton = styled(Button)({
   },
 });
 
+
 const LegalNoticePopup = () => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Only show if not already dismissed
+    const dismissed = localStorage.getItem('legalNoticeDismissed');
+    if (!dismissed) {
+      setIsVisible(true);
+    }
+  }, []);
 
   const handleOk = () => {
     setIsVisible(false);
+    localStorage.setItem('legalNoticeDismissed', 'true');
   };
 
   return (

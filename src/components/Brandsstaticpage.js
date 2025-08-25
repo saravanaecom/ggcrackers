@@ -6,66 +6,84 @@ const Brands = () => {
 
   // Top 10 Popular Cracker Brands (these are common brand names in the fireworks industry)
   const brands = [
-    {
-      name: "Standard Fireworks",
-      logo: "🎆",
-      description: "Premium quality fireworks since 1942",
-      specialty: "Aerial Displays"
-    },
-    {
-      name: "Ayyan Fireworks", 
-      logo: "✨",
-      description: "Traditional crackers with modern safety",
-      specialty: "Ground Spinners"
-    },
-    {
-      name: "Cock Brand",
-      logo: "🐓",
-      description: "Trusted name in celebrations",
-      specialty: "Sound Crackers"
-    },
-    {
-      name: "Kaliswari",
-      logo: "🌟",
-      description: "Colorful and safe fireworks",
-      specialty: "Sparklers"
-    },
-    {
-      name: "Diamond Crackers",
-      logo: "💎",
-      description: "Brilliant displays for every occasion",
-      specialty: "Fancy Items"
-    },
-    {
-      name: "Peacock Fireworks",
-      logo: "🦚",
-      description: "Spectacular multi-color effects",
-      specialty: "Aerial Shots"
-    },
-    {
-      name: "Lion Crackers",
-      logo: "🦁",
-      description: "Bold and powerful celebrations",
-      specialty: "Bombs & Chorsa"
-    },
-    {
-      name: "Eagle Fireworks",
-      logo: "🦅",
-      description: "Soaring high with quality",
-      specialty: "Sky Shots"
-    },
-    {
-      name: "Flower Pot",
-      logo: "🌸",
-      description: "Beautiful ground displays",
-      specialty: "Flower Pots"
-    },
-    {
-      name: "Star Fireworks",
-      logo: "⭐",
-      description: "Making every moment special",
-      specialty: "Mix Collections"
-    }
+  {
+  name: "Standard Fireworks",
+  logo: "🎆",
+  description: "India’s most iconic fireworks brand, trusted for generations. Renowned for innovation and safety.",
+  specialty: "Spectacular Aerial Displays"
+},
+{
+  name: "Ajantha Fireworks",
+  logo: "✨",
+  description: "Blending tradition with modern safety, Ajantha brings classic crackers to every celebration.",
+  specialty: "Ground Spinners & Sparklers"
+},
+{
+  name: "Mori Brand",
+  logo: "🐓",
+  description: "Celebration experts known for vibrant colors and festive sounds. Perfect for family fun.",
+  specialty: "Sound Crackers & Color Bombs"
+},
+{
+  name: "Metro",
+  logo: "🌟",
+  description: "Metro delivers dazzling, safe fireworks for all ages. Brighten your night with confidence.",
+  specialty: "Premium Sparklers"
+},
+{
+  name: "Blue Crackers",
+  logo: "💎",
+  description: "Famous for brilliant blue effects and creative designs. Make every event unforgettable.",
+  specialty: "Fancy & Designer Fireworks"
+},
+{
+  name: "Ravindra Fireworks",
+  logo: "🦚",
+  description: "Multi-color magic and spectacular effects. Ravindra is the choice for grand displays.",
+  specialty: "Aerial Shots & Multi-Color Effects"
+},
+{
+  name: "Elephant Crackers",
+  logo: "🐘",
+  description: "Powerful, bold, and safe. Elephant Crackers are perfect for those who love a big celebration.",
+  specialty: "Bombs, Chorsa & Loud Crackers"
+},
+{
+  name: "Starwell Fireworks",
+  logo: "🦅",
+  description: "Soaring high with quality and variety. Starwell is a favorite for sky lovers.",
+  specialty: "Sky Shots & Rockets"
+},
+{
+  name: "Ashok",
+  logo: "🌸",
+  description: "Beautiful ground displays and gentle effects. Ashok is ideal for family-friendly fun.",
+  specialty: "Flower Pots & Ground Chakkars"
+},
+{
+  name: "Maruthi Fireworks",
+  logo: "🚀",
+  description: "Making every moment special with a wide range of innovative products.",
+  specialty: "Mix Collections & Gift Packs"
+},
+{
+  name: "Sparklers",
+  logo: "✨",
+  description: "Bright, safe, and joyful sparklers for all ages. A must-have for every festival.",
+  specialty: "Long-Lasting Sparklers"
+},
+{
+  name: "Liya",
+  logo: "🎉",
+  description: "Liya brings excitement to every party with unique effects and safe designs.",
+  specialty: "Party Crackers & Novelty Items"
+},
+{
+  name: "Coronation",
+  logo: "👑",
+  description: "Royal celebrations start with Coronation. Experience luxury in every spark.",
+  specialty: "Premium Gift Boxes"
+}
   ];
 
   useEffect(() => {
@@ -153,12 +171,12 @@ const Brands = () => {
 
         <div className="brands-stats">
           <div className="stat-card">
-            <div className="stat-number">200+</div>
+            <div className="stat-number">100+</div>
             <div className="stat-label">Premium Brands</div>
           </div>
           
           <div className="stat-card">
-            <div className="stat-number">10k+</div>
+            <div className="stat-number">3000+</div>
             <div className="stat-label">Product Varieties</div>
           </div>
           
@@ -168,7 +186,7 @@ const Brands = () => {
           </div>
           
           <div className="stat-card">
-            <div className="stat-number">50+</div>
+            <div className="stat-number">40+</div>
             <div className="stat-label">Years Experience</div>
           </div>
         </div>

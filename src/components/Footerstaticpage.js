@@ -1,5 +1,6 @@
 import React from 'react';
 import './Footer.css';
+import logoImage from '../assets/GG Crackers Logo Final-01.jpg';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,11 +12,11 @@ const Footer = () => {
           <div className="footer-section company-info">
             <div className="footer-logo">
               <div className="logo-container">
-                <div className="footer-logo-placeholder">GG</div>
+                <img src={logoImage} alt="GG Crackers Logo" className="footer-logo-image" />
                 <div className="logo-sparkle">✨</div>
               </div>
               <h3 className="company-name">GG CRACKERS</h3>
-              <p className="company-tagline">Premium Fireworks & Celebrations</p>
+              <p className="company-tagline">Fantacy World</p>
             </div>
             
             <p className="company-description">
@@ -46,10 +47,9 @@ const Footer = () => {
               <li><a href="#about">About Us</a></li>
               <li><a href="#brands">Brands</a></li>
               <li><a href="#contact">Contact</a></li>
-              <li><a href="#products">Products</a></li>
-              <li><a href="#safety">Safety Tips</a></li>
-              <li><a href="#gallery">Gallery</a></li>
-              <li><a href="#testimonials">Reviews</a></li>
+            
+              <li><a href="#SafeTipsstatic">Safety Tips</a></li>
+             
             </ul>
           </div>
 
@@ -71,29 +71,16 @@ const Footer = () => {
             <h4 className="section-title">Get in Touch</h4>
             
             <div className="contact-details">
-              <div className="contact-item">
-                <span className="contact-icon">📍</span>
-                <div className="contact-text">
-                  <strong>Address:</strong>
-                  <p>123 Fireworks Street, Celebration City, State 123456</p>
-                </div>
-              </div>
+           
 
               <div className="contact-item">
                 <span className="contact-icon">📞</span>
                 <div className="contact-text">
                   <strong>Phone:</strong>
-                  <p><a href="tel:+919876543210">+91 98765 43210</a></p>
+                  <p><a href="tel:+919876543210">+91 8870012810</a></p>
                 </div>
               </div>
 
-              <div className="contact-item">
-                <span className="contact-icon">✉️</span>
-                <div className="contact-text">
-                  <strong>Email:</strong>
-                  <p><a href="mailto:info@ggcrackers.com">info@ggcrackers.com</a></p>
-                </div>
-              </div>
 
               <div className="contact-item">
                 <span className="contact-icon">⏰</span>
@@ -112,30 +99,12 @@ const Footer = () => {
             <p className="social-subtitle">Join our community for latest updates, offers, and celebration ideas!</p>
             
             <div className="social-links">
-              <a 
-                href="https://facebook.com/ggcrackers" 
-                className="social-link facebook"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="social-icon">📘</div>
-                <span className="social-text">Facebook</span>
-                <div className="social-hover-effect"></div>
-              </a>
+          
+
+        
 
               <a 
-                href="https://instagram.com/ggcrackers" 
-                className="social-link instagram"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="social-icon">📷</div>
-                <span className="social-text">Instagram</span>
-                <div className="social-hover-effect"></div>
-              </a>
-
-              <a 
-                href="https://youtube.com/ggcrackers" 
+                href="https://www.youtube.com/@ggcrackersfantasyworld" 
                 className="social-link youtube"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -156,34 +125,11 @@ const Footer = () => {
                 <div className="social-hover-effect"></div>
               </a>
 
-              <a 
-                href="https://twitter.com/ggcrackers" 
-                className="social-link twitter"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <div className="social-icon">🐦</div>
-                <span className="social-text">Twitter</span>
-                <div className="social-hover-effect"></div>
-              </a>
+          
             </div>
           </div>
 
-          <div className="newsletter-section">
-            <h4>Stay Updated</h4>
-            <p>Subscribe to get latest offers and celebration tips!</p>
-            <div className="newsletter-form">
-              <input 
-                type="email" 
-                placeholder="Enter your email"
-                className="newsletter-input"
-              />
-              <button className="newsletter-btn">
-                <span>Subscribe</span>
-                <div className="btn-spark">✨</div>
-              </button>
-            </div>
-          </div>
+        
         </div>
 
         <div className="footer-bottom">

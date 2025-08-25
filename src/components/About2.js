@@ -1,10 +1,12 @@
 import React from 'react';
 import './About.css';
 
+import { useNavigate } from 'react-router-dom';
+
 const About = () => {
+  const navigate = useNavigate();
   const handleOrderOnline = () => {
-    // Add WhatsApp or order functionality
-    window.open('https://wa.me/919876543210?text=Hello! I would like to place an order for crackers.', '_blank');
+    navigate('/');
   };
 
   const handleSafetyTips = () => {
@@ -76,6 +78,14 @@ const About = () => {
                 <div className="contact-content">
                   <span className="contact-label">Business Hours</span>
                   <span className="contact-value">Mon-Sun: 24 Hours</span>
+                </div>
+              </div>
+
+              <div className="contact-item">
+                <div className="contact-icon">📞</div>
+                <div className="contact-content">
+                  <span className="contact-label">Contact</span>
+                  <span className="contact-value">+91 8870012810</span>
                 </div>
               </div>
             </div>
