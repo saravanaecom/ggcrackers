@@ -60,7 +60,7 @@ const Header = () => {
           </div>
           <div className="brand-text">
             <h1 className="brand-name">GG CRACKERS</h1>
-            <p className="brand-tagline">Fantacy World Every Fire</p>
+            <p className="brand-tagline">Fantacy World </p>
           </div>
         </div>
 

@@ -120,7 +120,7 @@ const SafeTips = () => {
               </div>
               <div className="contact-item">
                 <span className="contact-icon">📞</span>
-                <span>GG Crackers Helpline: +91 98765 43210</span>
+                <span>GG Crackers Helpline: +91 8870012810</span>
               </div>
             </div>
           </div>

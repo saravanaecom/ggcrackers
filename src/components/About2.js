@@ -34,7 +34,7 @@ const About = () => {
               </p>
               
               <p>
-                With over 15 years of experience in the fireworks industry, we specialize in bringing 
+                With over 14 years of experience in the fireworks industry, we specialize in bringing 
                 joy and spectacular colors to your celebrations. From traditional Diwali crackers to 
                 modern aerial displays, we offer a wide range of premium quality fireworks that are 
                 both safe and spectacular.
