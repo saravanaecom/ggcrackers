@@ -27,7 +27,7 @@ export default function HomePage() {
                 <ImageCategorySlider />*/}
                 {/* <ProductByIndexPage/>                  */}
                 <AboutUsSection/>
-              {/* <  CrackerShowcaseCards/> */}
+              <  CrackerShowcaseCards/>
                 <ProductCategories/>
 
                 <ImageCategorySlider />
