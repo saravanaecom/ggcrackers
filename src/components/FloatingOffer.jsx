@@ -68,7 +68,7 @@ const FloatingOffer = () => {
   const navigate = useNavigate();
 
   const handleOfferClick = () => {
-    navigate(`/product-list?pcid=${btoa('offer_product')}&pcname=${btoa('Special Offers')}`);
+    navigate(`/product-list?pcid=${btoa('Budget_blast')}&pcname=${btoa('Special Offers')}`);
   };
 
   return (
