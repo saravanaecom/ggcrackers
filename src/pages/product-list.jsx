@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Container, Select, MenuItem, FormControl, Drawer, List, ListItem, ListItemText, Grid, Typography, Avatar, CircularProgress, Backdrop } from '@mui/material';
 import ProductCard from '../components/ProductCard';
-import { API_FetchOfferFastMovingProduct, API_FetchNewProduct,fetchSelectProduct,fetchKidslist, API_FetchProductByIndexPage,API_FetchProductIdMoreItems, API_FetchProductByCategory, API_FetchProductBySubCategory, API_FetchBrand,fetchtopproductlist } from '../services/productListServices';
+import { API_FetchOfferFastMovingProduct, API_FetchNewProduct,API_FetchourProduct,fetchSelectProduct,fetchKidslist, API_FetchProductByIndexPage,API_FetchProductIdMoreItems, API_FetchProductByCategory, API_FetchProductBySubCategory, API_FetchBrand,fetchtopproductlist } from '../services/productListServices';
 import { API_FetchCategorySubCategory } from '../services/categoryServices';
 import { ImagePathRoutes } from '../routes/ImagePathRoutes';
 import { positions, styled } from '@mui/system';
@@ -48,6 +48,7 @@ const ProductList = () => {
   const [categoryName, setCategoryName] = useState(null);
   const [offerProducts, setOfferProducts] = useState(null);
   const [kidsProducts, setKidsProducts] = useState(null);
+  const [familyProducts, setFimilyProducts] = useState(null);
   const [BudgetProducts, setBudgetProducts] = useState(null);
   const [newProducts, setNewProducts] = useState(null);
   const [relatedProducts, setRelatedProducts] = useState(null);
@@ -139,11 +140,26 @@ const ProductList = () => {
 
       }
 
+
+      else if (categoryId === "offer_product") {
+        setRelatedProducts(null);
+        setNewProducts(null);
+        setOfferProducts(null);
+        setBudgetProducts(null);
+        setKidsProducts(null);
+        setFimilyProducts(categoryId);
+        setActiveCategory("Family Collection");
+        productLists = await API_FetchourProduct();
+      
+
+      }
+
       else if (categoryId === "Budget_blast") {
         setRelatedProducts(null);
         setNewProducts(null);
         setOfferProducts(null);
         setKidsProducts(null);
+        setFimilyProducts(null);
         setBudgetProducts(categoryId);
         setActiveCategory("Budget Blast");
         productLists = await API_FetchNewProduct();
@@ -152,6 +168,7 @@ const ProductList = () => {
         setOfferProducts(null);
         setKidsProducts(null);
         setRelatedProducts(null);
+        setFimilyProducts(null);
         setNewProducts(categoryId);
         setActiveCategory("ALL products");
         productLists = await fetchSelectProduct();
@@ -167,6 +184,7 @@ const ProductList = () => {
         setKidsProducts(null);
         setBudgetProducts(null);
         setNewProducts(null);
+        setFimilyProducts(null);
         setRelatedProducts(atob(categoryName));
         setActiveCategory("You might also like products");
         productLists = await API_FetchProductIdMoreItems(atob(categoryName));
@@ -176,6 +194,7 @@ const ProductList = () => {
         setKidsProducts(null);
         setBudgetProducts(null);
         setRelatedProducts(null);
+        setFimilyProducts(null);
         setNewProducts(null);
         productLists = await API_FetchProductByCategory(categoryId, Multipleitems, Startindex, PageCount);
       }
@@ -343,7 +362,7 @@ const ProductList = () => {
       <Container maxWidth="xl" sx={{ px: { xs: 0, md: 3 } ,mt: {xs:0 ,md: 7} }}>
         <Grid container>
           {/* Left-side Drawer for larger screens */}
-          {(offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && BudgetProducts === null) && (
+          {(offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && familyProducts ===null && BudgetProducts === null) && (
             <Grid item xs={12} md={2} sx={{ display: { xs: 'none', md: 'block' } }} style={{ position: 'sticky',  height: '100vh' }}>
               <Drawer
                 variant="permanent"
@@ -413,7 +432,7 @@ const ProductList = () => {
           {/* Mobile Drawer Toggle Button */}
        
 
-          {(offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && BudgetProducts === null) && (
+          {(offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && familyProducts===null && BudgetProducts === null) && (
             <Grid item xs={2} md={2} sx={{ display: { xs: 'flex', md: 'none' }, position: 'sticky', top: 0 }}>
               <Drawer
                 variant="permanent"
@@ -471,7 +490,7 @@ const ProductList = () => {
 
 
           {/* Right-side Content Area */}
-          <Grid item xs={offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && BudgetProducts === null ? 10 : 12} md={offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null && BudgetProducts === null ? 10 : 12} sx={{ p: { xs: 1, md: 3 } }}>
+          <Grid item xs={offerProducts === null && relatedProducts === null && newProducts === null && familyProducts ===null  && kidsProducts=== null && BudgetProducts === null ? 10 : 12} md={offerProducts === null && relatedProducts === null && newProducts === null && kidsProducts=== null &&  familyProducts ===null && BudgetProducts === null ? 10 : 12} sx={{ p: { xs: 1, md: 3 } }}>
             <Grid container sx={{ px: { xs: 1, md: 0 }, justifyContent: "flex-start", gap: "0px 18px" }}>
               {/* update by for brand search start  */}
               {/* update by   for brand search end  */}

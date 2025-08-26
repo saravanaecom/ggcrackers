@@ -453,7 +453,13 @@ export default function ProductCheckout() {
                                         fullWidth
                                         label="MobileNumber"
                                         value={selectedAddress.MobileNumber}
-                                        onChange={(e) => handleAddressChange('MobileNumber', e.target.value)}
+                                        onChange={(e) => {
+                                            const value = e.target.value.replace(/\D/g, '').slice(0, 10);
+                                            handleAddressChange('MobileNumber', value);
+                                        }}
+                                        inputProps={{ maxLength: 10, pattern: '[0-9]*' }}
+                                        error={selectedAddress.MobileNumber && selectedAddress.MobileNumber.length !== 10}
+                                        helperText={selectedAddress.MobileNumber && selectedAddress.MobileNumber.length !== 10 ? 'Mobile number must be exactly 10 digits' : ''}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
