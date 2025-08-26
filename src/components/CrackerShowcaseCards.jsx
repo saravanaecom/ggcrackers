@@ -9,9 +9,9 @@ import {
 } from "@mui/material";
 import { styled, keyframes } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import daycrakers from "../assets/daycrakers.jpg";
+import daycrakers from "../assets/kidsimage.jpg";
 import Nightcrakers from "../assets/daycrakers.jpg";
-
+import daycrakers2 from "../assets/nightcrackers.jpg";
 // Animations
 const float = keyframes`
   0%, 100% { transform: translateY(0px); }
@@ -104,7 +104,7 @@ const CrackerShowcaseCards = () => {
     {
       id: "offer_product", 
       title: "Family Pack",
-      image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=500&fit=crop",
+      image: daycrakers2,
     },
     {
       id: "Top_product",
