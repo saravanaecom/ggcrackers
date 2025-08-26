@@ -159,9 +159,37 @@ export default function ProductCheckout() {
         setDateValue(newValue);
     };
 
-     const handleOtpSubmit = async () => {
+     const handleVerifyNumber = async () => {
+        setShowLoader(true);
+        try {
+            let WhatsAppUrl = "";
+            let OwnerMobileNo = "";
+            var mobileno = selectedAddress.MobileNumber;
+            if (whatsapdata.length > 0) {
+                ({ WhatsAppUrl, OwnerMobileNo } = whatsapdata[0]);
+            }
+             
+            const otpresponse = await otpverification(WhatsAppUrl, mobileno);
+                  
+            if (otpresponse) {
+                const otpString = otpresponse.toString();
+                setReceivedOtp(otpString);
+                setShowOtpInput(true);
+                setShowLoader(false);
+            } else {
+                setShowLoader(false);
+                setShowErrorMsg("Failed to send OTP. Please try again.");
+            }
+        } catch (error) {
+            setShowLoader(false);
+            setShowErrorMsg("Failed to send OTP. Please try again.");
+        }
+    };
+
+    const handleOtpSubmit = async () => {
        if (receivedOtp.toString() === enteredOtp){
          setIsOtpValid(true);
+        // setShowErrorMsg("OTP verified successfully!");
        } else {
          setIsOtpValid(false);
          setShowErrorMsg("Invalid OTP. Please try again.");
@@ -174,14 +202,14 @@ export default function ProductCheckout() {
     };
 
     //Place order function
-    const handlePlaceOrder = async() => {          
-
-                setOnlinePayment(false);
-                setAlertOpen(false);
-                PlaceOrder(0, '');
- 
-                     
-     
+    const handlePlaceOrder = async() => {
+        if (!isOtpValid) {
+            setShowErrorMsg("Please verify your mobile number first.");
+            return;
+        }
+        setOnlinePayment(false);
+        setAlertOpen(false);
+        PlaceOrder(0, '');
     };
 
 
@@ -216,28 +244,12 @@ export default function ProductCheckout() {
         try {
             let WhatsAppUrl = "";
             let OwnerMobileNo = "";
-            var mobileno = selectedAddress.MobileNumber;
             if (whatsapdata.length > 0) {
                 ({ WhatsAppUrl, OwnerMobileNo } = whatsapdata[0]);
             }
-             
-              const otpresponse = await otpverification(WhatsAppUrl, mobileno);
-                  
-              if (otpresponse) {
-                // OTP verification is successful, show input for OTP
-        
-                const otpString = otpresponse.toString();
-                setReceivedOtp(otpString);  // OTP received from backend
-                setShowOtpInput(true);  // Show OTP input field
-                setShowLoader(false);  // Hide loader
-              } else {
-                setShowLoader(false);
-                setShowErrorMsg("Failed to send OTP. Please try again.");
-              }
             
-            //const pincode1 = selectedAddress.Pincode.toString().trim();
-             const response = await API_InsertSaleOrderSave(master, WhatsAppUrl, OwnerMobileNo);
-             console.log(response);
+            const response = await API_InsertSaleOrderSave(master, WhatsAppUrl, OwnerMobileNo);
+            console.log(response);
     
             if (response.length !== 0) {
                 setLoading(false);
@@ -254,9 +266,6 @@ export default function ProductCheckout() {
                 setShowLoader(false);
                 handleAlertOpen(true);
             }
-        
-            
-        
         } catch (error) {
             console.error("Error inserting order details:", error);
             setLoading(false);
@@ -264,8 +273,6 @@ export default function ProductCheckout() {
             setShowLoader(false);
             handleAlertOpen(true);
         }
-
-        
     };
     
     const handleAddressChange = (field, value) => {
@@ -299,7 +306,7 @@ export default function ProductCheckout() {
             {
                 Id: 0,
                 CustomerRefId: 1,
-                CutomerName: "nun",
+                CutomerName: selectedAddress.Address1,
                 MobileNo: selectedAddress.MobileNumber,
                 Email: "karthick123svks@gmail.com",
                 Address1: selectedAddress.Address1,
@@ -343,7 +350,8 @@ export default function ProductCheckout() {
             },
         ];
         console.log(deliverycharge)
-        console.log('Master',master)
+        console.log("Master:", JSON.stringify(master, null, 2));
+
 
         await InsertSaleOrderSave(master);
 
@@ -402,7 +410,7 @@ export default function ProductCheckout() {
                                 <Grid item xs={12} sm={6}>
                                     <TextField
                                         fullWidth
-                                        label="Address-1"
+                                        label="Customer Name"
                                         value={selectedAddress.Address1}
                                         onChange={(e) => handleAddressChange('Address1', e.target.value)}
                                     />
@@ -447,6 +455,22 @@ export default function ProductCheckout() {
                                         value={selectedAddress.MobileNumber}
                                         onChange={(e) => handleAddressChange('MobileNumber', e.target.value)}
                                     />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Button
+                                        variant="contained"
+                                        onClick={handleVerifyNumber}
+                                        disabled={!selectedAddress.MobileNumber || showOtpInput}
+                                        sx={{
+                                            backgroundColor: theme.palette.basecolorCode.main,
+                                            color: theme.palette.whitecolorCode.main,
+                                            '&:hover': {
+                                                backgroundColor: theme.palette.basecolorCode.main,
+                                            },
+                                        }}
+                                    >
+                                        {showOtpInput ? 'OTP Sent' : 'Verify Number'}
+                                    </Button>
                                 </Grid>
                             </Grid>
 
@@ -500,7 +524,7 @@ export default function ProductCheckout() {
                                     size="small"
                                     variant="contained"
                                     onClick={handlePlaceOrder}
-                                    disabled={loading} // Disable the button while loading
+                                    disabled={loading || !isOtpValid} // Disable the button while loading or OTP not verified
                                     sx={{
                                         marginLeft: 'auto',
                                         float: 'right',
