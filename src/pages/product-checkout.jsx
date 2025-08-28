@@ -223,19 +223,18 @@ export default function ProductCheckout() {
              
               const otpresponse = await otpverification(WhatsAppUrl, mobileno);
                   
-              if (otpresponse) {
-                // OTP verification is successful, show input for OTP
+            //   if (otpresponse) {
+            //     // OTP verification is successful, show input for OTP
         
-                const otpString = otpresponse.toString();
-                setReceivedOtp(otpString);  // OTP received from backend
-                setShowOtpInput(true);  // Show OTP input field
-                setShowLoader(false);  // Hide loader
-              } else {
-                setShowLoader(false);
-                setShowErrorMsg("Failed to send OTP. Please try again.");
-              }
-            if (receivedOtp.toString() === enteredOtp) {
-                setIsOtpValid(true);
+            //     const otpString = otpresponse.toString();
+            //     setReceivedOtp(otpString);  // OTP received from backend
+            //     setShowOtpInput(true);  // Show OTP input field
+            //     setShowLoader(false);  // Hide loader
+            //   } else {
+            //     setShowLoader(false);
+            //     setShowErrorMsg("Failed to send OTP. Please try again.");
+            //   }
+
             //const pincode1 = selectedAddress.Pincode.toString().trim();
              const response = await API_InsertSaleOrderSave(master, WhatsAppUrl, OwnerMobileNo);
              console.log(response);
@@ -255,12 +254,8 @@ export default function ProductCheckout() {
                 setShowLoader(false);
                 handleAlertOpen(true);
             }
-        } 
-            
-            else {
-                setShowLoader(false);
-                setShowErrorMsg("Invalid OTP. Please try again.");
-            }
+        
+                  
         } catch (error) {
             console.error("Error inserting order details:", error);
             setLoading(false);
