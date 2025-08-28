@@ -53,6 +53,7 @@ export const APIRoutes = {
     GET_NEW_PRODUCT: `${ServerURL.PRODUCTION_HOST_URL}api/WebMobileApp/SelectNewProdcut`,
 
 
+   GET_OUR_PRODUCT: `${ServerURL.PRODUCTION_HOST_URL}api/WebMobileApp/SelectOurChoiceProdcut`,
     //GET BRAND
     GET_NEW_BRAND: `${ServerURL.PRODUCTION_HOST_URL}/api/WebMobileApp/SelectBrand`,
 
