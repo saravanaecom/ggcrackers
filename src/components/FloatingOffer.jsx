@@ -19,7 +19,7 @@ const sparkle = keyframes`
 
 const FloatingOfferButton = styled(Box)({
   position: 'fixed',
-  bottom: '20px',
+  bottom: '70px',
   right: '20px',
   width: '80px',
   height: '80px',
