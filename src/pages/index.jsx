@@ -47,9 +47,7 @@ export default function HomePage() {
                 <OfferFastMovingProduct/>
                 <BrandSlider />
                 <HeroSection />
-                <Suspense fallback={null}>
-                    <CreackersEffect/>
-                </Suspense>
+          
                 <FloatingOffer/>
                 <LegalNoticePopup /> 
         </>
