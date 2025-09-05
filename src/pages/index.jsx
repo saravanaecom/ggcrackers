@@ -44,7 +44,7 @@ export default function HomePage() {
                         }}
                     /> 
                 </Box>
-                <OfferFastMovingProduct/>
+             
                 <BrandSlider />
                 <HeroSection />
           
