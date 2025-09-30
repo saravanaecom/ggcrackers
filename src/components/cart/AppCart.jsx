@@ -344,6 +344,7 @@ export default function AppCart({ CartDrawerOpen, setLoginDrawerOpen, handleAuth
                 <Button
                   size='small'
                   variant='contained'
+                  disabled
                   onClick={handleProceedItems}
                   sx={{
                     width: '100%',
@@ -366,7 +367,7 @@ export default function AppCart({ CartDrawerOpen, setLoginDrawerOpen, handleAuth
                     }
                   }}
                 >
-                  Proceed to checkout
+                  OUT OF STOCK
                 </Button>
               </Box>
             </Box>
